@@ -148,11 +148,14 @@
 <!DOCTYPE HTML>
 <head>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Survey</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Survey</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
 
-	
-	<style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="Content/site.css" rel="stylesheet" />
+
+    <style>
 	.error
 	{
 		color:red;
@@ -163,60 +166,113 @@
 	
 </head>
 
-<body>
-		<form method="post">
-			Nickname <br/> <input type="text" name="nick"/> <br/>
-			
-			<?php
-				if(isset($_SESSION['e_nick']))
-				{
-					echo '<div class= "error">'. $_SESSION['e_nick'].'</div>';
-					unset($_SESSION['e_nick']);
-				}
-			?>
-			
-			E-mail: <br/> <input type="text" name="email"/> <br/>
-			
-			<?php
-				if(isset($_SESSION['e_email']))
-				{
-					echo '<div class= "error">'. $_SESSION['e_email'].'</div>';
-					unset($_SESSION['e_email']);
-				}
-			?>
-			
-			Password: <br/> <input type="password" name="pass1"/> <br/>
-			<?php
-				if(isset($_SESSION['e_pass']))
-				{
-					echo '<div class= "error">'. $_SESSION['e_pass'].'</div>';
-					unset($_SESSION['e_pass']);
-				}
-			?>
-			
-			Confirm Passwod: <br/> <input type="password" name="pass2"/> <br/>
+<body class="card--logo">
+<div class="container">
+    <header class="row ">
+        <br><br><br><br><br><br><br><br><br><br>
 
-            Name: <br/> <input type="text" name="name"/><br/>
-            <?php
-            if(isset($_SESSION['e_name']))
-            {
-                echo '<div class= "error">'. $_SESSION['e_name'].'</div>';
-                unset($_SESSION['e_name']);
-            }
-            ?>
+    </header>
+    <main class="row">
+        <div class="col-md-6 card--white">
+            <div class="container-fluid">
+                <form method="post">
 
-            Surname <br/><input type="text" name="surname"/><br/>
-            <?php
-            if(isset($_SESSION['e_surname']))
-            {
-                echo '<div class= "error">'. $_SESSION['e_surname'].'</div>';
-                unset($_SESSION['e_surname']);
-            }
-            ?>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="nickname" >Nickname:</label>
+                            <input  type="text" class="form-control" id="nickname" name="nick" placeholder="Nickname"></input>
+                        </div>
+                    </div>
 
-			<input type="submit" value="Sign up">
-			
-		</form>
+
+                    <?php
+                    if(isset($_SESSION['e_nick']))
+                    {
+                        echo '<div class= "error">'. $_SESSION['e_nick'].'</div>';
+                        unset($_SESSION['e_nick']);
+                    }
+                    ?>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="mail" >E-mail:</label>
+                            <input  type="text" class="form-control" id="mail" name="email" placeholder="E-mail"></input>
+                        </div>
+                    </div>
+
+
+                    <?php
+                    if(isset($_SESSION['e_email']))
+                    {
+                        echo '<div class= "error">'. $_SESSION['e_email'].'</div>';
+                        unset($_SESSION['e_email']);
+                    }
+                    ?>
+
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="pass" >Password:</label>
+                            <input  type="password" class="form-control" id="pass" name="pass1" placeholder="Password:"></input>
+                        </div>
+                    </div>
+
+
+                    <?php
+                    if(isset($_SESSION['e_pass']))
+                    {
+                        echo '<div class= "error">'. $_SESSION['e_pass'].'</div>';
+                        unset($_SESSION['e_pass']);
+                    }
+                    ?>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="pass2" >Confirm Password:</label>
+                            <input  type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm Password:"></input>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="name" >Name:</label>
+                            <input  type="text" class="form-control" id="name" name="name" placeholder="Name:"></input>
+                        </div>
+                    </div>
+
+                    <?php
+                    if(isset($_SESSION['e_name']))
+                    {
+                        echo '<div class= "error">'. $_SESSION['e_name'].'</div>';
+                        unset($_SESSION['e_name']);
+                    }
+                    ?>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="surname" >Surname:</label>
+                            <input  type="text" class="form-control" id="surname" name="surname" placeholder="Surname:"></input>
+                        </div>
+                    </div>
+
+                    <?php
+                    if(isset($_SESSION['e_surname']))
+                    {
+                        echo '<div class= "error">'. $_SESSION['e_surname'].'</div>';
+                        unset($_SESSION['e_surname']);
+                    }
+                    ?>
+
+                    <input type="submit" class="btn btn-primary" value="Sign up">
+
+
+
+
+                </form>
+            </div>
+
+        </div>
+
+    </main>
+</div>
+
+
 
 </body>
 </html>
