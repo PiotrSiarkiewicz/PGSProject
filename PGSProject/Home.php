@@ -46,7 +46,7 @@
                         $connection = @new mysqli($host,$db_user,$db_password,$db_name);
 
                         $iduser=$_SESSION['iduser'];
-                        echo $iduser;
+
                         $result = @$connection->query(sprintf("SELECT * FROM access WHERE iduser='$iduser' "));
                         while($access= $result->fetch_assoc())
                         {
