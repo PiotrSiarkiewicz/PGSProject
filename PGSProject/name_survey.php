@@ -13,15 +13,15 @@
 	if($exsurvey>0) //if survey with this title exist
 	{
 		$_SESSION['error']='<span style="color:red">This name for survey is busy</span>'; //create text for error
-		header('Location: creation.php');  //return to creation.php
+        header('Location: creation.php');  //return to creation.php
 	}
 	if($survey=='')
     {
         $_SESSION['error']='<span style="color:red">Please insert survey title</span>'; //create text for error
         header('Location: creation.php');  //return to creation.php
     }
-	    else{
-
+    if($exsurvey==0 && $survey!=''){
+        echo "cos";
 		$result = @$connection->query(sprintf("UPDATE surveys SET text='$survey' WHERE idsurvey=$idsurvey")) ;
 
 		unset($_SESSION['error']);

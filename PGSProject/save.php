@@ -15,7 +15,7 @@
     unset($_SESSION['status']);
     unset($_SESSION['question']);
     unset($_SESSION['idquestion']);
-    unset($_SESSION['idanswere']);
+    unset($_SESSION['idanswer']);
     unset($_SESSION['answere']);
 
 	header("Location: home.php");
