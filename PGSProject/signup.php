@@ -1,7 +1,14 @@
 <?php
 
 	session_start();
-	
+
+	//checking if you are logged in
+    if ((isset($_SESSION['log_in'])) && ($_SESSION['log_in']==true))
+    {
+        header('Location: home.php');
+        exit();
+    }
+
 	if(isset($_POST['email']))
 	{
 
@@ -37,10 +44,10 @@
 		//checking passwords
 		$pass1 = $_POST['pass1'];
 		$pass2 = $_POST['pass2'];
-		
+		echo strlen($pass1);
 		if(strlen($pass1)<8 || strlen($pass1)>20)
 		{
-			$everythig_OK==false;
+			$everythig_OK=false;
 			$_SESSION['e_pass']="Password must be between 8 and 20 characters lon";
 		}
 		
@@ -87,7 +94,7 @@
 			//checking if email is available
 			else
 			{
-				echo $email;
+
 				$result = $connection->query("SELECT * FROM users WHERE email='$email'");
 				
 				if(!$result) throw new Exception($connection->error);
@@ -96,7 +103,7 @@
 
 				if($mail_amount>0)
 				{
-					echo $mail_amount."<br/>";
+
 					$everythig_OK==false;
 					$_SESSION['e_email']="Account with this email already exist!";
 				}
@@ -108,7 +115,7 @@
 				if(!$result) throw new Exception($connection->error);
 				
 				$users_amount= $result->num_rows;
-				echo $users_amount;
+
 				if($users_amount>0)
 				{
 					$everythig_OK=false;
@@ -180,7 +187,16 @@
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label for="nickname" >Nickname:</label>
-                            <input  type="text" class="form-control" id="nickname" name="nick" placeholder="Nickname"></input>
+
+                            <input  type="text" class="form-control" id="nickname" name="nick"<?php
+                            //checking if good nickname was set and not deleting it from text lable
+                            if(isset($nick) && !isset($_SESSION['e_nick']))
+                            {
+                                echo 'value='.$nick.'></input>';
+                            }else
+                                echo 'placeholder="Nickname:"></input>';
+                            ?>
+
                         </div>
                     </div>
 
@@ -192,10 +208,20 @@
                         unset($_SESSION['e_nick']);
                     }
                     ?>
+
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label for="mail" >E-mail:</label>
-                            <input  type="text" class="form-control" id="mail" name="email" placeholder="E-mail"></input>
+                            <input  type="text" class="form-control" id="mail" name="email"
+                            <?php
+                            //checking if good email was set and not deleting it from text lable
+                                if(isset($email) && !isset($_SESSION['e_email']))
+                                {
+                                   echo 'value='.$email.'></input>';
+                                }else
+                                echo 'placeholder="E-mail"></input>';
+                            ?>
+
                         </div>
                     </div>
 
@@ -233,7 +259,17 @@
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label for="name" >Name:</label>
-                            <input  type="text" class="form-control" id="name" name="name" placeholder="Name:"></input>
+
+                            <input  type="text" class="form-control" id="name" name="name"
+                            <?php
+                            //checking if good name was set and not deleting it from text lable
+                            if(isset($name) && !isset($_SESSION['e_name']))
+                            {
+                                echo 'value='.$name.'></input>';
+                            }else
+                                echo 'placeholder="Name:"></input>';
+                            ?>
+
                         </div>
                     </div>
 
@@ -247,7 +283,16 @@
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label for="surname" >Surname:</label>
-                            <input  type="text" class="form-control" id="surname" name="surname" placeholder="Surname:"></input>
+                            <input  type="text" class="form-control" id="surname" name="surname"
+                            <?php
+                            //checking if good surname was set and not deleting it from text lable
+                            if(isset($surname) && !isset($_SESSION['e_surname']))
+                            {
+                                echo 'value='.$surname.'></input>';
+                            }else
+                                echo 'placeholder="Surname:"></input>';
+                            ?>
+
                         </div>
                     </div>
 
@@ -260,10 +305,10 @@
                     ?>
 
                     <input type="submit" class="btn btn-primary" value="Sign up">
-
-
-
-
+                </form>
+                <br/>
+                <form action="index.php">
+                    <input type="submit" class="btn btn-primary" value="Back">
                 </form>
             </div>
 

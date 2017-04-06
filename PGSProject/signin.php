@@ -33,8 +33,7 @@
 
                 $wiersz = $result->fetch_assoc();
                 echo $password." i ".$wiersz['pass'];
-                if (password_verify($password, $wiersz['pass'])) {// jak beda hashe
-              //  if ($password==$wiersz['pass']) {
+                if (password_verify($password, $wiersz['pass'])) {
                     $_SESSION['log_in'] = true;
                     $_SESSION['iduser'] = $wiersz['iduser'];
                     $_SESSION['user'] = $wiersz['login'];

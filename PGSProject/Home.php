@@ -1,10 +1,13 @@
 <?php
-    if((!isset($_POST['user'])) || (!isset($_POST['pass'])))
+    session_start();
+
+    if ((!isset($_SESSION['log_in'])))
     {
-        header("Location: index.php");
+        header('Location: index.php');
         exit();
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +34,7 @@
             <form action="creation.php">
                 <div class=" form-group">
                     <button class="btn btn-primary" tFype="button"> Create New Survey</button>
+
                 </div>
             </form>
 
@@ -38,11 +42,11 @@
                 <div class="row content">
                     <div class="col-sm-8  card--white">
                         <?php
-                        session_start();
                         require_once "connect.php";
                         $connection = @new mysqli($host,$db_user,$db_password,$db_name);
 
                         $iduser=$_SESSION['iduser'];
+                        echo $iduser;
                         $result = @$connection->query(sprintf("SELECT * FROM access WHERE iduser='$iduser' "));
                         while($access= $result->fetch_assoc())
                         {
@@ -51,8 +55,7 @@
                             if($rezultat = @$connection->query(sprintf("SELECT text FROM surveys WHERE idsurvey='$idsurvey'"))) {
                                 $show_text = $rezultat->fetch_assoc();
                                 $show = $show_text['text'];
-                                //echo '<form action=show.php method=post><input type="submit" value='.$show.' name='.$i.'></form>';
-                                echo '<a href="survey.php">' . $show . '</a></p><br/>';
+                                echo  $show . '<br/>';
                             }
                         }
 
