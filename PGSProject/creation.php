@@ -37,11 +37,16 @@
 		Write title of the survey:
 		<input type="text" name="survey">
 		<input type="submit" value="OK"> 
-		<?php  if(isset($_SESSION['survey']))
-        {
-            echo "<b>".$_SESSION['survey']."</b>";
-        }?><br/><br />
-	</form>
+		<?php
+            if(isset($_SESSION['survey'])&& !isset($_SESSION['error']))
+            {
+                echo "<b>".$_SESSION['survey']."</b>";
+            }
+            if(isset($_SESSION['error'])){
+                echo $_SESSION['error'];
+            }
+        ?>
+        <br/><br /></form>
 
 
 
@@ -71,7 +76,6 @@
             $rezultat = $connection->query(sprintf("SELECT * FROM answeres WHERE idquestion='$idquestion'"));
             $num = $rezultat->num_rows;
             while ($answer = $rezultat->fetch_assoc()) {
-
                 echo "<b>".$answer['text']."</b><br/>";
             }
         }
@@ -80,7 +84,8 @@
         echo "Write answeres.";
 
         echo '<input type="text" name="answer">';
-        echo '<input type="Submit" value="Add new answer">';
+        echo '<input type="Submit" value="Add new answer"></form>';
+
     }
     ?><br/><br />
 
@@ -89,12 +94,7 @@
 	</form>
 	
 	<form action="delete.php"><input type="submit" value="Delete"></form>
-<?php
 
-	if(isset($_SESSION['error'])){
-		echo $_SESSION['error'];
-	}
-?>
 
 </body>
 
