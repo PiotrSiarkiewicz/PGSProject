@@ -58,18 +58,30 @@
             echo '</form>';
         }
     }
-		?><br/><br />
+		?><br/>
 
 
     <?php
     if(isset($_SESSION['idquestion'])){
+
+        if(isset($_SESSION['idanswer'])) {
+            $idanswer=$_SESSION['idanswer'];
+            $idquestion=$_SESSION['idquestion'];
+            $connection = @new mysqli($host,$db_user,$db_password,$db_name);
+            $rezultat = $connection->query(sprintf("SELECT * FROM answeres WHERE idquestion='$idquestion'"));
+            $num = $rezultat->num_rows;
+            while ($answer = $rezultat->fetch_assoc()) {
+
+                echo "<b>".$answer['text']."</b><br/>";
+            }
+        }
+
         echo '<form action="answeres.php" method="post">';
-        echo "Write answeres..";
+        echo "Write answeres.";
+
         echo '<input type="text" name="answer">';
         echo '<input type="Submit" value="Add new answer">';
-        if(isset($_SESSION['answer'])){
-            echo "<b>".$_SESSION['answer']."</b>";}
-        echo '</form>';}
+    }
     ?><br/><br />
 
 	<form action="save.php">

@@ -5,35 +5,30 @@
 
 
 	$connection = @new mysqli($host,$db_user,$db_password,$db_name);
-	$answere=$_POST['answere'];
-	$_SESSION['answere']=$answere;
+	$answer=$_POST['answer'];
+	$_SESSION['answer']=$answer;
 	$idsurvey=$_SESSION['idsurvey'];
 	$idquestion = $_SESSION['idquestion'];
-	echo $idquestion;
+
 	
 		if($connection -> connect_errno!=0)
 		{
 			echo "Error: ".$connection->connect_errno;
 		}else{
 
-			if($rezultat = @$connection->query(sprintf("SELECT * FROM questions WHERE idquestion=$idquestion"))){
-				
-				echo "cos";
-				$put = "INSERT INTO answeres VALUE(NULL, $idquestion, '$answere' ,$idsurvey,'')";  //typy nie zrobiony jeszcze ostatnia wartość
-				$rezultat = @$connection->query(sprintf("SELECT * FROM answeres WHERE text='$answere'"));
-				$answere_tab = $rezultat->fetch_assoc();
-				$_SESSION['idanswere'] = $answere_tab['idanswere'];
+			if($rezultat = $connection->query(sprintf("SELECT * FROM questions WHERE idquestion='$idquestion'"))){
 
-				if ($connection->query($put) === FALSE) {
-					echo "Error: " . $put . "<br>" . $connection->error;
-				}else{
-					$rezultat->close();
-					$connection->close();
+				$connection->query(sprintf( "INSERT INTO answeres VALUE(NULL, $idquestion, '$answer' ,$idsurvey,'')"));  //typy nie zrobiony jeszcze ostatnia wartość
+				$rezultat = $connection->query(sprintf("SELECT * FROM answeres WHERE text='$answer' AND idquestion='$idquestion'"));
+				$answer_tab = $rezultat->fetch_assoc();
+				$_SESSION['idanswer'] = $answer_tab['idanswer'];
+
+
 					header("Location: creation.php");
-				}	
-				echo "aja";
+
+
 			}
-			echo "ko";
+
 		}
 	
 ?>
