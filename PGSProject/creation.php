@@ -82,11 +82,11 @@
                 for ($j = 0; $j <= $_SESSION['num']; $j++) {
                     if (isset($_POST['answerupdate' . $j])) {
                         $answerupdate = $_POST['answerupdate' . $j];
-                        $idanswer = $_SESSION['idanswertab' . $j];
+                        $idanswer = $_SESSION['idanswer' . $j];
                         $connection->query(sprintf("UPDATE answeres SET text='$answerupdate' WHERE idanswer='$idanswer'"));  //typy nie zrobiony jeszcze ostatnia wartość
                         unset($_POST['answerupdate' . $j]);
+                        unset($_SESSION['idanswer'.$j]);
                     }
-
                 }
             }
             $rezultat = $connection->query(sprintf("SELECT * FROM answeres WHERE idquestion='$idquestion'"));
@@ -98,9 +98,8 @@
                 echo '<form method="post">';
                 $text = $answer['text'];
                 echo "<li><input type='text' name='answerupdate".$i."' value='$text'>";
-
                 echo '<input type="Submit" value="Change Answer"></form><br></li>';
-                 $_SESSION['idanswertab'.$i] = $answer['idanswer'];
+                 $_SESSION['idanswer'.$i] = $answer['idanswer'];
             }
             echo "</ol>";
         }
