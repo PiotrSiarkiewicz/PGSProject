@@ -1,6 +1,13 @@
 <?php
 	session_start();	
 	require_once "connect.php";
+
+    if ((!isset($_SESSION['log_in'])))
+    {
+        header('Location: index.php');
+        exit();
+    }
+
 	if(!isset($_SESSION['status']))
 	{
 	    $iduser=$_SESSION['iduser'];
@@ -8,8 +15,6 @@
 		$connection = @new mysqli($host,$db_user,$db_password,$db_name);
         $result = @$connection->query(sprintf("INSERT INTO surveys VALUE (NULL,$iduser,'','in progress',now())"));
         $_SESSION['text']="";
-		//$_SESSION['question']="INSERT INTO questions VALUE (NULL,'')";
-
 
 		$result = @$connection->query(sprintf("SELECT * FROM surveys WHERE text='' AND iduser=$iduser"));
 		
@@ -73,12 +78,34 @@
             $idanswer=$_SESSION['idanswer'];
             $idquestion=$_SESSION['idquestion'];
             $connection = @new mysqli($host,$db_user,$db_password,$db_name);
-            $rezultat = $connection->query(sprintf("SELECT * FROM answeres WHERE idquestion='$idquestion'"));
-            $num = $rezultat->num_rows;
-            while ($answer = $rezultat->fetch_assoc()) {
-                echo "<b>".$answer['text']."</b><br/>";
+            if(isset($_SESSION['num'])) {
+                for ($j = 0; $j <= $_SESSION['num']; $j++) {
+                    if (isset($_POST['answerupdate' . $j])) {
+                        $answerupdate = $_POST['answerupdate' . $j];
+                        $idanswer = $_SESSION['idanswertab' . $j];
+                        $connection->query(sprintf("UPDATE answeres SET text='$answerupdate' WHERE idanswer='$idanswer'"));  //typy nie zrobiony jeszcze ostatnia wartość
+                        unset($_POST['answerupdate' . $j]);
+                    }
+
+                }
             }
+            $rezultat = $connection->query(sprintf("SELECT * FROM answeres WHERE idquestion='$idquestion'"));
+            $_SESSION['num'] = $rezultat->num_rows;
+            echo "<ol>";
+            $i=0;
+            while ($answer = $rezultat->fetch_assoc()) {
+                $i = $i + 1;
+                echo '<form method="post">';
+                $text = $answer['text'];
+                echo "<li><input type='text' name='answerupdate".$i."' value='$text'>";
+
+                echo '<input type="Submit" value="Change Answer"></form><br></li>';
+                 $_SESSION['idanswertab'.$i] = $answer['idanswer'];
+            }
+            echo "</ol>";
         }
+
+
 
         echo '<form action="answeres.php" method="post">';
         echo "Write answeres.";
