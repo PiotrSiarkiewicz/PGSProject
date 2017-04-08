@@ -151,7 +151,7 @@
     }
     ?><br/><br />
 
-    //<form action="data.php" method="post"><input type="submit" name="quesprev" value="Previous Question"></form>
+    <form action="data.php" method="post"><input type="submit" name="quesprev" value="Previous Question"></form>
 
 	<form action="save.php"><input type="submit" value="Submit"></form>
 	
