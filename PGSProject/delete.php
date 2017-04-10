@@ -8,15 +8,7 @@
 	$idsurvey=$_SESSION['idsurvey'];
 
 	$result = @$connection->query(sprintf("DELETE FROM surveys WHERE idsurvey=$idsurvey"));
-//	$connection->query($delete_survey);
-	
-	$result= @$connection->query(sprintf("DELETE FROM questions WHERE idsurvey=$idsurvey"));
-//	$connection->query($delete_question);
-	
-	$result=@$connection->query(sprintf("DELETE FROM answeres WHERE idsurvey=$idsurvey"));
-//	$connection->query($delete_answeres);
 
-   // $result=@$connection->query(sprintf("DELETE FROM answeres WHERE idsurvey=$idsurvey"));
 
 	unset($_SESSION['survey']);
 	unset($_SESSION['idsurvey']);
