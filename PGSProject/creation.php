@@ -32,6 +32,10 @@
 	<meta charset="utf-8"/>
 	<meta http-equiv=" X-UA-Compatible" content= "IE=edge,chrome=1"/> 
 	<title>Survey</title>
+
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+
+    <link href="Content/site.css" rel="stylesheet" />
 </head>
 
 
@@ -93,7 +97,7 @@
         }
     }
 
-		?>
+		?><br/>
 
 
     <?php
@@ -151,7 +155,7 @@
     }
     ?><br/><br />
 
-    <form action="data.php" method="post"><input type="submit" name="quesprev" value="Previous Question"></form>
+
 
 	<form action="save.php"><input type="submit" value="Submit"></form>
 	
