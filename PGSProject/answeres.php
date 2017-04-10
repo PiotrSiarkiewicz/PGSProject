@@ -23,17 +23,17 @@
                 $rezultat = $connection->query(sprintf("SELECT * FROM answeres WHERE text='$answer' AND idquestion='$idquestion'"));
                 $answer_tab = $rezultat->fetch_assoc();
                 $_SESSION['idanswer'] = $answer_tab['idanswer'];
-                header("Location: creation.php");
+               // header("Location: creation.php");
             }
 			if($rezultat = $connection->query(sprintf("SELECT * FROM questions WHERE idquestion='$idquestion'"))&& !isset($_POST['answerupdate'])){
                 $answer=$_POST['answer'];
                 $_SESSION['answer']=$answer;
-
-				$connection->query(sprintf( "INSERT INTO answeres VALUE(NULL, $idquestion, '$answer' ,$idsurvey,'')"));  //typy nie zrobiony jeszcze ostatnia wartość
+                echo $answer;
+				$connection->query(sprintf( "INSERT INTO answeres VALUE(NULL, $idquestion, '$answer' ,'')"));  //typy nie zrobiony jeszcze ostatnia wartość
 				$rezultat = $connection->query(sprintf("SELECT * FROM answeres WHERE text='$answer' AND idquestion='$idquestion'"));
 				$answer_tab = $rezultat->fetch_assoc();
 				$_SESSION['idanswer'] = $answer_tab['idanswer'];
-					header("Location: creation.php");
+                header("Location: creation.php");
 			}
 
 		}

@@ -59,7 +59,7 @@
             }
 
 
-            if ($rezultat = @$connection->query(sprintf("SELECT * FROM surveys WHERE idsurvey=$idsurvey")) && !isset($_POST['queschange']) && !isset($_POST['quesprev']) && !isset($_POST['quesnext'])) {
+            if ($rezultat = @$connection->query(sprintf("SELECT * FROM surveys WHERE idsurvey=$idsurvey")) && !isset($_POST['quesdelete']) && !isset($_POST['queschange']) && !isset($_POST['quesprev']) && !isset($_POST['quesnext'])) {
                 $connection->query(sprintf("INSERT INTO questions VALUE(NULL, $idsurvey, '$question' )"));
                 $rezultat = @$connection->query(sprintf("SELECT * FROM questions WHERE idsurvey ='$idsurvey' AND text='$question'"));
                 $questions_tab = $rezultat->fetch_assoc();
@@ -71,7 +71,6 @@
 
             if (isset($_POST['quesdelete']) && isset($_SESSION['idquestion'])) {
                 $result = $connection->query(sprintf("DELETE FROM questions WHERE idquestion=$idquestion"));
-                $result = $connection->query(sprintf("DELETE FROM answeres WHERE idquestion=$idquestion"));
                 unset($_SESSION['idquestion']);
                 unset($_SESSION['question']);
 
