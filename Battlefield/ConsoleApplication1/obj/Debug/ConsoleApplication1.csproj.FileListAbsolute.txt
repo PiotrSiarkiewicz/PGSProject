@@ -1,0 +1,15 @@
+c:\users\siara\documents\visual studio 2015\Projects\CSharpAcademy4\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+c:\users\siara\documents\visual studio 2015\Projects\CSharpAcademy4\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+c:\users\siara\documents\visual studio 2015\Projects\CSharpAcademy4\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+c:\users\siara\documents\visual studio 2015\Projects\CSharpAcademy4\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
+c:\users\siara\documents\visual studio 2015\Projects\CSharpAcademy4\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+c:\users\siara\documents\visual studio 2015\Projects\CSharpAcademy4\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+D:\CSharpAcademy4\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+D:\CSharpAcademy4\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+D:\CSharpAcademy4\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+D:\CSharpAcademy4\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+D:\CSharpAcademy4\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+D:\CSharpAcademy4\ConsoleApplication1\obj\Debug\ConsoleApplication1.csprojResolveAssemblyReference.cache
+D:\Battlefield\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+D:\Battlefield\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+D:\Battlefield\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb

@@ -1,0 +1,6 @@
+D:\Battlefield\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+D:\Battlefield\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+D:\Battlefield\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+D:\Battlefield\ConsoleApplication1\obj\Debug\Battlefield.csprojResolveAssemblyReference.cache
+D:\Battlefield\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+D:\Battlefield\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
