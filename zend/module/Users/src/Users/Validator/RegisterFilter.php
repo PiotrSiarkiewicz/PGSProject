@@ -38,7 +38,9 @@ class RegisterFilter extends InputFilter
                         'max' => 140,
                     ],
                 ],
-
+                [
+                    'name' => 'Users\Validator\EduwebValidator'
+                ]
             ],
         ]);
     }

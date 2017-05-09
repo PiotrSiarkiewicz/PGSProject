@@ -1,7 +1,6 @@
 <?php
 namespace Users\Model;
 
-use Zend\Authentication\Validator\Authentication;
 use Zend\Db\TableGateway\TableGateway;
 
 class SurveyTable
@@ -32,11 +31,7 @@ class SurveyTable
 
     public function saveSurvey(Survey $survey)
     {
-        $status = "enabled";
         $data = array(
-            'status' => $status,
-            'date' => $survey->date,
-            'iduser'=> $survey->iduser,
             'description' => $survey->description,
             'title'  => $survey->title,
         );

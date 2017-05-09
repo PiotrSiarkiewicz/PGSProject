@@ -3,13 +3,12 @@
 
 $title = 'My Surveys';
 $this->headTitle($title);
-
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <p>
     <a href="<?php echo $this->url('survey', array('action'=>'create'));?>">Create new Survey</a>
 </p>
-<?php echo $this->user_email?>
+
 <table class="table">
     <tr>
         <th>Title</th>

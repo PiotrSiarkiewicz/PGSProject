@@ -54,7 +54,6 @@ class SurveyController extends AbstractActionController
             
             if ($form->isValid()) {
                 echo "przeszlo";
-                $survey->iduser = 28;   //Zend_Auth::getInstance()->getIdentity();
                 $survey->exchangeArray($form->getData());
                 $this->getSurveyTable()->saveSurvey($survey);
 
