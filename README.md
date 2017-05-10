@@ -5,10 +5,10 @@ LINUX
 
 2. After that add the code below to the 00-default.conf (/etc/apache2/sites-availble/). It is necessary to allow .htaccess files.
 
-<*/VirtualHost>
-<*Directory "/var/www/html">
-  AllowOverride All
-<*/Directory>
+  <*/VirtualHost>
+  <*Directory "/var/www/html">
+    AllowOverride All
+  <*/Directory>
 
 3. Put zend directory to /var/www/html/. Then type this -> (localhost/zend/public) to the address bar. Enjoy!
   
