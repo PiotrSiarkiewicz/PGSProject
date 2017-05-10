@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Czas generowania: 09 Kwi 2017, 18:27
--- Wersja serwera: 10.1.21-MariaDB
--- Wersja PHP: 7.1.1
+-- Host: localhost
+-- Czas generowania: 10 Maj 2017, 17:43
+-- Wersja serwera: 5.7.18-0ubuntu0.16.04.1
+-- Wersja PHP: 7.1.4-1+deb.sury.org~xenial+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `survey`
+-- Baza danych: `zend`
 --
 
 -- --------------------------------------------------------
@@ -32,13 +32,6 @@ CREATE TABLE `access` (
   `idsurvey` int(11) NOT NULL,
   `access` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Zrzut danych tabeli `access`
---
-
-INSERT INTO `access` (`idaccess`, `iduser`, `idsurvey`, `access`) VALUES
-(7, 18, 14, 'rw');
 
 -- --------------------------------------------------------
 
@@ -65,13 +58,6 @@ CREATE TABLE `questions` (
   `text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Zrzut danych tabeli `questions`
---
-
-INSERT INTO `questions` (`idquestion`, `idsurvey`, `text`) VALUES
-(131, 14, 'My question');
-
 -- --------------------------------------------------------
 
 --
@@ -94,6 +80,8 @@ CREATE TABLE `results` (
 
 CREATE TABLE `surveys` (
   `idsurvey` int(11) NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `title` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `iduser` int(11) NOT NULL,
   `text` text NOT NULL,
   `status` text NOT NULL,
@@ -104,8 +92,8 @@ CREATE TABLE `surveys` (
 -- Zrzut danych tabeli `surveys`
 --
 
-INSERT INTO `surveys` (`idsurvey`, `iduser`, `text`, `status`, `data`) VALUES
-(14, 18, 'My survey', 'in progress', '2017-04-09');
+INSERT INTO `surveys` (`idsurvey`, `description`, `title`, `iduser`, `text`, `status`, `data`) VALUES
+(15, 'test', 'Mysurvey', 19, 'asdf', 'asdf', '2017-05-10');
 
 -- --------------------------------------------------------
 
@@ -116,7 +104,7 @@ INSERT INTO `surveys` (`idsurvey`, `iduser`, `text`, `status`, `data`) VALUES
 CREATE TABLE `users` (
   `iduser` int(11) NOT NULL,
   `login` text NOT NULL,
-  `pass` text NOT NULL,
+  `password` text NOT NULL,
   `email` text NOT NULL,
   `name` text NOT NULL,
   `surname` text NOT NULL
@@ -126,8 +114,8 @@ CREATE TABLE `users` (
 -- Zrzut danych tabeli `users`
 --
 
-INSERT INTO `users` (`iduser`, `login`, `pass`, `email`, `name`, `surname`) VALUES
-(18, 'PtakiLatajaKluczem', '$2y$10$AOzrZTKVMmyhVWb6WJI15efzSiuJkSSvCPkjJAoFpI3.aME0qkNza', 'siaramix@gmail.com', 'Piotr', 'Siarkiewicz');
+INSERT INTO `users` (`iduser`, `login`, `password`, `email`, `name`, `surname`) VALUES
+(19, 'root', '202cb962ac59075b964b07152d234b70', 'siaramix@gmail.com', 'Piotr', 'Siarkiewicz');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -209,12 +197,12 @@ ALTER TABLE `results`
 -- AUTO_INCREMENT dla tabeli `surveys`
 --
 ALTER TABLE `surveys`
-  MODIFY `idsurvey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `idsurvey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- Ograniczenia dla zrzutów tabel
 --
