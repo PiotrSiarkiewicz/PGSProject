@@ -1,6 +1,6 @@
 # PGSProject
 
-	LINUX
+> 	LINUX
 1. To run our project first you need to install LAMP (Linux, Apache, MySQL and PHP). To accoplish this process just follow  steps under this link https://www.atlantic.net/community/howto/install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04/.
 
 2. After that add the code below to the 00-default.conf (/etc/apache2/sites-availble/). It is necessary to allow .htaccess files.
@@ -16,7 +16,7 @@
 3. Put zend directory to /var/www/html/. Then type this -> (localhost/zend/public) to the address bar. Enjoy!
   
   
-	WINDOWS	
+> 	WINDOWS	
 1. To run our project first you need to install XAMPP. You can download it from this site: https://www.apachefriends.org/download.html.
 
 2. After successfull installation open XAMPP Control Panel and click "Start" for MySQL and Apache.
