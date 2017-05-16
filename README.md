@@ -15,6 +15,7 @@
 
 3. Put zend directory to /var/www/html/. Then type this -> (localhost/zend/public) to the address bar. Enjoy!
   
+  
 	WINDOWS	
 1. To run our project first you need to install XAMPP. You can download it from this site: https://www.apachefriends.org/download.html.
 
