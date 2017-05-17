@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 10 Maj 2017, 20:31
+-- Czas generowania: 17 Maj 2017, 16:25
 -- Wersja serwera: 10.1.21-MariaDB
 -- Wersja PHP: 7.1.2
 
@@ -112,18 +112,35 @@ CREATE TABLE `surveys` (
   `idsurvey` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
   `title` text NOT NULL,
-  `descritpion` text NOT NULL,
+  `description` text NOT NULL,
   `status` text NOT NULL,
-  `date` date NOT NULL
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Zrzut danych tabeli `surveys`
 --
 
-INSERT INTO `surveys` (`idsurvey`, `iduser`, `title`, `descritpion`, `status`, `date`) VALUES
-(14, 18, 'My survey', '', 'in progress', '2017-04-09'),
-(16, 19, 'Ankieta 1', '', 'in progress', '2017-04-10');
+INSERT INTO `surveys` (`idsurvey`, `iduser`, `title`, `description`, `status`, `date`) VALUES
+(14, 18, 'My survey', '', 'in progress', '2017-04-09 00:00:00'),
+(16, 19, 'Ankieta 1', '', 'in progress', '2017-04-10 00:00:00'),
+(17, 19, 'cos', 'jakis', 'completed', '0000-00-00 00:00:00'),
+(18, 19, 'd', 'f', 'enabled', '2017-05-05 00:00:00'),
+(19, 19, 'fa', 's', 'enabled', '2017-05-03 00:00:00'),
+(20, 19, 'ss', 'dd', 'enabled', '2017-05-11 00:00:00'),
+(21, 19, 'udalosie', 'udalos sie', 'enabled', '2017-05-03 00:00:00'),
+(22, 19, '33', '22', 'enabled', '0000-00-00 00:00:00'),
+(23, 19, 'da', 'ad', 'enabled', '2017-05-17 12:33:09'),
+(24, 19, 'd', 'd', 'enabled', '2017-05-17 12:47:51'),
+(25, 19, 'ss', 'aa', 'enabled', '2017-05-17 12:48:40'),
+(26, 19, 'aa', '11', 'complete', '2017-05-17 12:50:19'),
+(28, 23, '11', '22', 'complete', '2017-05-17 12:50:43'),
+(29, 23, '42', '12', 'complete', '2017-05-17 01:22:46'),
+(30, 18, '23', '1', 'complete', '2017-05-17 01:44:49'),
+(31, 18, '41', 'ss', 'complete', '2017-05-17 01:56:25'),
+(32, 18, '12441', 'sss', 'complete', '2017-05-17 01:56:46'),
+(33, 19, '1241', '12', 'complete', '2017-05-17 01:57:22'),
+(34, 19, 'lsl', 'kka', 'complete', '2017-05-17 04:24:59');
 
 -- --------------------------------------------------------
 
@@ -150,7 +167,8 @@ INSERT INTO `users` (`iduser`, `login`, `password`, `email`, `name`, `surname`) 
 (20, 'wpadka', '$2y$10$TgYIoNX/m6cIC.Ticfb1AO8J2on3nWiBfn4/Nh1JCeW33ob3GvWyq', 'wpadocha@gmail.com', 'MioszBbliski', 'Bbliski'),
 (23, 'test', '202cb962ac59075b964b07152d234b70', 'test@gmail.com', 'eduweb', 'B?bli?ski'),
 (24, 'test2', '$2y$10$lrq7HKP0b525cTMpoeQKOedwJJH7ul9JTgN4PDWzXplK1TxrorV06', 'test2@gmail.com', 'eduweb', 'b'),
-(26, 'test3', '25d55ad283aa400af464c76d713c07ad', 'test3@gmail.com', 'eduweb', 's');
+(26, 'test3', '25d55ad283aa400af464c76d713c07ad', 'test3@gmail.com', 'eduweb', 's'),
+(29, 'wpadkaa', '202cb962ac59075b964b07152d234b70', 'wpadsocha@gmail.com', 'eduweb', 'B?bli?ski');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -235,12 +253,12 @@ ALTER TABLE `results`
 -- AUTO_INCREMENT dla tabeli `surveys`
 --
 ALTER TABLE `surveys`
-  MODIFY `idsurvey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idsurvey` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- Ograniczenia dla zrzutów tabel
 --
