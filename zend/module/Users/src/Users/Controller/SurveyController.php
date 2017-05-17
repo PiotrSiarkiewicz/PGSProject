@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Users\Model\Survey;          // <-- Add this import
 use Users\Form\SurveyForm;
+use Zend\Session\Container;
 
 class SurveyController extends AbstractActionController
 {
@@ -35,6 +36,8 @@ class SurveyController extends AbstractActionController
     }
     public function indexAction()
     {
+        $session = new Container('base');  //Session creating connection
+        echo $session->offsetGet('email');
         return new ViewModel(array(
             'surveys' => $this->getSurveyTable()->fetchAll(),
         ));
@@ -45,15 +48,20 @@ class SurveyController extends AbstractActionController
         $form = new SurveyForm();
         $form->get('submit')->setValue('Create');
 
+        $session = new Container('base');  //Session creating connection
+       // $session->offsetSet('iduser', 23); //setting iduser
+
+        $iduser = $session->offsetGet('email');
+        echo $iduser;
         $request = $this->getRequest();
         if ($request->isPost()) {
-            echo "tutaj";
+
             $survey = new Survey();
             $form->setInputFilter($survey->getInputFilter());
             $form->setData($request->getPost());
             
             if ($form->isValid()) {
-                echo "przeszlo";
+
                 $survey->exchangeArray($form->getData());
                 $this->getSurveyTable()->saveSurvey($survey);
 

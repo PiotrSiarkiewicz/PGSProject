@@ -43,10 +43,7 @@ class SurveyForm extends Form
 
         $this->add([
             'name' => 'date',
-            'type' => 'date',
-            'options' => [
-                'label' => 'Date',
-            ],
+            'type' => 'hidden'
         ]);
 
         $this->add([
