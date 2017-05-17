@@ -13,5 +13,6 @@ echo $this->form()->openTag($form);
 echo $this->formHidden($form->get('idsurvey'));
 echo $this->formRow($form->get('title'));
 echo $this->formRow($form->get('description'));
+echo $this->formhidden($form->get('date'));
 echo $this->formSubmit($form->get('submit'));
 echo $this->form()->closeTag();

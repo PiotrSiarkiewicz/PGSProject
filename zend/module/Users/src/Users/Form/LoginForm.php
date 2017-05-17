@@ -32,7 +32,7 @@ class LoginForm extends Form
                 'required' => 'required'
             ],
             'options' => [
-                'label' => 'Hasło'
+                'label' => 'Password'
             ]
         ]);
 

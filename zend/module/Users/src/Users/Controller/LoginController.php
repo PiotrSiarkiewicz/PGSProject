@@ -38,15 +38,16 @@ class LoginController extends AbstractActionController
         else
         {
             $this->getAuthService()->getStorage()->write($this->request->getPost('email'));
-
+          //  $this->getSurveyTable()->fetchAll()
             return  $this->redirect()->toRoute('survey',
-                array('controller'=>'survey', 'action'=>'index'));
+                array('controller'=>'survey', 'action'=>'index'));   //after successfull log in routing to profile
         }
 
     }
 
     public function processAction()
     {
+
         if(!$this->request->isPost())
         {
             return $this->redirect()->toRoute(null, array('controller' => 'login', 'action' => 'index'));
