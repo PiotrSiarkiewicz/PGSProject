@@ -16,9 +16,9 @@ class SurveyTable
 
     public function fetchAll()
     {
-        $resultSet = $this->tableGateway->select(array('iduser'=>$this->iduser=19)); //record only for iduser=19
         $session = new Container('base');
-        $session->offsetSet('iduser', $this->iduser);
+        $iduser = $session->offsetGet('iduser');
+        $resultSet = $this->tableGateway->select(array('iduser' => $iduser));
         return $resultSet;
     }
 
@@ -38,10 +38,9 @@ class SurveyTable
         $status = "complete";
         $session = new Container('base');
         $iduser = $session->offsetGet('iduser'); //gettting iduser from session
-        $date = date('Y/m/d h:i:s ');
+
         $data = array(
             'status' => $status,
-            'date' => $survey->date=$date,
             'iduser'=> $survey->iduser=$iduser,
             'description' => $survey->description,
             'title'  => $survey->title,

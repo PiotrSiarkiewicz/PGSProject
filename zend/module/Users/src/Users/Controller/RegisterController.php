@@ -8,12 +8,19 @@ use Zend\Db\TableGateway\TableGateway;
 use Users\Model\User;
 use Users\Model\UserTable;
 use Zend\Db\ResultSet\ResultSet;
-
+use Zend\Session\Container;
 
 class RegisterController extends AbstractActionController
 {
+    private $message;
     public function indexAction()
     {
+        $session = new Container('base');
+        if($session->offsetExists('iduser')) {
+
+            return $this->redirect()->toRoute('survey',
+                array('controller' => 'survey', 'action' => 'index'));   //after successfull log in routing to profile
+        }
         $form = new RegisterForm();
         $viewModel = new ViewModel(array('form' => $form));
         return $viewModel;
@@ -38,14 +45,44 @@ class RegisterController extends AbstractActionController
         $user = new User();
         $user->exchangeArray($data);
         $userTable = new UserTable($tableGateway);
-        $userTable->saveUser($user);
+        if(!$userTable->uniqueEmail($user))
+        {
+            $this->message = 'email';
+            return false;
+
+        }
+        else
+        {
+            if(!$userTable->uniqueLogin($user))
+            {
+                $this->message = 'login';
+                return false;
+            }
+            $userTable->saveUser($user);
+        }
 
         return true;
     }
+    public function emailMessege()
+    {
+        $post = $this->request->getPost();
 
+        $form = new RegisterForm();
+        $form->setData($post);
+        $model = new ViewModel(array(
+            'error' => true,
+            'form' => $form,
+        ));
+
+        $form->get($this->message)->setMessages([$this->message.' is already taken']); //ustaw wiadomosc
+
+        $model->setTemplate('users/register/index');  //wroc do formularza
+        return $model;
+    }
 
     public function processAction()
     {
+
         if(!$this->request->isPost())
         {
             return $this->redirect()->toRoute(null, array('controller' => 'register', 'action' => 'index'));
@@ -81,12 +118,15 @@ class RegisterController extends AbstractActionController
             return $model;
         }
 
-        $this->createUser($form->getData());  //utworzenie wpisu w tabeli
+        if(!$this->createUser($form->getData()))
+        {
+            return $this->emailMessege();
+        }
 
         return $this->redirect()->toRoute(NULL , array(
             'controller' => 'register',
             'action' => 'confirm'
-            ));  //przeniesienie do confirm
+            ));
     }
 }
 

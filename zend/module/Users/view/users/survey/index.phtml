@@ -9,7 +9,7 @@ $this->headTitle($title);
 <p>
     <a href="<?php echo $this->url('survey', array('action'=>'create'));?>">Create new Survey</a>
 </p>
-<?php echo $this->user_email?>
+
 <table class="table">
     <tr>
         <th>Title</th>
@@ -29,3 +29,5 @@ $this->headTitle($title);
         </tr>
     <?php endforeach; ?>
 </table>
+
+<a href="<?php echo $this->url('survey', array('action'=>'logout'));?>">Logout</a>

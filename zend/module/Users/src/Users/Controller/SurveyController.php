@@ -6,6 +6,8 @@ use Zend\View\Model\ViewModel;
 use Users\Model\Survey;          // <-- Add this import
 use Users\Form\SurveyForm;
 use Zend\Session\Container;
+use Zend\Authentication\AuthenticationService;
+
 
 class SurveyController extends AbstractActionController
 {
@@ -17,7 +19,6 @@ class SurveyController extends AbstractActionController
         {
             $dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
             $dbTableAuthAdapter = new DbTableAuthAdapter($dbAdapter, 'surveys','title','description');
-
             $authService = new AuthenticationService();
             $authService->setAdapter($dbTableAuthAdapter);
             $this->authservice = $authService;
@@ -36,10 +37,35 @@ class SurveyController extends AbstractActionController
     }
     public function indexAction()
     {
-        $session = new Container('base');  //Session creating connection
-        echo $session->offsetGet('email');
+
+        $session = new Container('base');
+
+
+
+
+
+        if (!$session->offsetExists('iduser')) {
+            return $this->redirect()->toRoute('users' , array(
+                'controller' => 'login',
+                'action' => 'index'
+            ));
+        }
+
+
         return new ViewModel(array(
             'surveys' => $this->getSurveyTable()->fetchAll(),
+        ));
+    }
+
+    public function logoutAction()
+    {
+        $name = 'base' ;
+        $container = new Container($name);
+        $container->getManager()->getStorage()->clear($name);
+
+        return $this->redirect()->toRoute(NULL , array(
+            'controller' => 'login',
+            'action' => 'index'
         ));
     }
 
@@ -48,11 +74,7 @@ class SurveyController extends AbstractActionController
         $form = new SurveyForm();
         $form->get('submit')->setValue('Create');
 
-        $session = new Container('base');  //Session creating connection
-       // $session->offsetSet('iduser', 23); //setting iduser
 
-        $iduser = $session->offsetGet('email');
-        echo $iduser;
         $request = $this->getRequest();
         if ($request->isPost()) {
 

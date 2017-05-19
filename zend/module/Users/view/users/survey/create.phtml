@@ -16,3 +16,8 @@ echo $this->formRow($form->get('description'));
 echo $this->formhidden($form->get('date'));
 echo $this->formSubmit($form->get('submit'));
 echo $this->form()->closeTag();
+?>
+
+<a href="<?php echo $this->url('survey', array('action'=>'logout'));?>">Logout</a>
+<br>
+<a href="<?php echo $this->url('survey', array('action'=>'index'));?>">Back</a>

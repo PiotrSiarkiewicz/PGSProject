@@ -13,14 +13,14 @@ class LoginForm extends Form
         $this->setAttribute('method', 'post');
 
         $this->add([
-            'name' => 'email',
+            'name' => 'login',
             'type' => 'Zend\Form\Element\Text',
             'attributes' => [
-                'placeholder' => '@',
+                'placeholder' => 'login',
                 'required' => 'required'
             ],
             'options' => [
-              'label' => 'E-mail'
+              'label' => 'Login'
             ]
         ]);
 
