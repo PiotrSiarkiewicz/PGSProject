@@ -17,12 +17,18 @@ class UserTable
     }
     public function fetchAll()
     {
-        $resultSet =  $this->tableGateway->select(array('email'=>$this->iduser=18));
+        $resultSet =  $this->tableGateway->select(array('login'=>$this->iduser=18));
         $session = new Container('base');
-        $session->offsetSet('email', $this->email);
+        $session->offsetSet('iduser', $this->login);
         return $resultSet;
     }
+    public function getIdUser($login)
+    {
+        $resultSet =  $this->tableGateway->select(['login'=> $login]);
+        $row = $resultSet->current();
+        return $row->iduser;
 
+    }
     public function saveUser(User $user)
     {
         $data = [
@@ -32,32 +38,42 @@ class UserTable
             'name' => $user->name,
             'surname' => $user->surname
         ];
-        $id = (int)$user->id;
-        if($id == 0)
+        $this->tableGateway->insert($data);
+
+    }
+
+    public function uniqueEmail(User $user)
+    {
+        $email = $user->email;
+        if($this->tableGateway->select(['email'=> $email])->current() == 0)
         {
-            $this->tableGateway->insert($data);
+            return true;
         }
-        else
         {
-            if($this->getUser($id))
-            {
-                $this->tableGateway->update($data,['id' => $id]);
-            }
-            else
-            {
-                throw new \Exception("Użytkowanik o tym ID nie istnieje");
-            }
+            return false;
+        }
+    }
+    public function uniqueLogin(User $user)
+    {
+        $login = $user->login;
+        if($this->tableGateway->select(['login'=> $login])->current() == 0)
+        {
+            return true;
+        }
+        {
+            return false;
         }
     }
 
-    public function getUser($id)
+    public function getUser($iduser)
     {
-        $id = (int)$id;
-        $rowset = $this->tableGateway->select(['id' => $id]);
+        $iduser = (int)$iduser;
+        $rowset = $this->tableGateway->select(['iduser' => $iduser]);
         $row = $rowset->current();
+
         if(!row)
         {
-            throw new \Exception('Nie mogę znaleść rekordu o ID =  '.$id);
+            throw new \Exception('Nie mogę znaleść rekordu o ID =  '.$iduser);
         }
         return $row;
 
