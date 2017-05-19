@@ -15,11 +15,15 @@ class RegisterForm extends Form
         $this->add([
             'name' => 'login',
             'attributes' => [
-                'type' => 'text'
+                'type' => 'text',
+
             ],
-            'options' => [
+
+
+            'options' =>
+                [
                 'label' => 'Login'
-            ]
+                ]
             ]
         );
         

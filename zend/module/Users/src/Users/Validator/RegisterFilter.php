@@ -20,6 +20,38 @@ class RegisterFilter extends InputFilter
             ]
             ]
         );
+        $this->add([
+                'name' => 'login',
+                'required' => true,
+                'validators' => [
+                    [
+                        'name' => 'StringLength',
+                        'options' => [
+                            'encoding' => 'UTF-8',
+                            'min' => 4,
+                            'max' => 20,
+                        ],
+                    ],
+
+                ],
+            ]
+        );
+        $this->add([
+                'name' => 'password',
+                'required' => true,
+                'validators' => [
+                    [
+                        'name' => 'StringLength',
+                        'options' => [
+                            'encoding' => 'UTF-8',
+                            'min' => 4,
+                            'max' => 20,
+                        ],
+                    ],
+
+                ],
+            ]
+        );
         
         $this->add([
             'name' => 'name',
@@ -34,8 +66,28 @@ class RegisterFilter extends InputFilter
                     'name' => 'StringLength',
                     'options' => [
                         'encoding' => 'UTF-8',
-                        'min' => 2,
-                        'max' => 140,
+                        'min' => 4,
+                        'max' => 20,
+                    ],
+                ],
+
+            ],
+        ]);
+        $this->add([
+            'name' => 'surname',
+            'required' => true,
+            'filters' => [
+                [
+                    'name' => 'StripTags',
+                ],
+            ],
+            'validators' => [
+                [
+                    'name' => 'StringLength',
+                    'options' => [
+                        'encoding' => 'UTF-8',
+                        'min' => 4,
+                        'max' => 20,
                     ],
                 ],
 
