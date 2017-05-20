@@ -29,6 +29,10 @@ class Survey implements InputFilterAwareInterface
     {
         throw new \Exception("Not used");
     }
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
 
     public function getInputFilter()
     {

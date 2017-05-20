@@ -1,27 +1,24 @@
 <?php
-$title = 'My albums';
+
+$title = 'Delete Survey';
 $this->headTitle($title);
 ?>
-<h1><?= $this->escapeHtml($title) ?></h1>
-<p>
-    <a href="<?= $this->url('survey', ['action' => 'create']) ?>">Create new Survey</a>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<p>Are you sure that you want to delete
+    '<?php echo $this->escapeHtml($survey->title); ?>' by
+    '<?php echo $this->escapeHtml($survey->artist); ?>'?
 </p>
-<table class="table">
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>&nbsp;</th>
-    </tr>
-    <?php foreach ($albums as $album) : ?>
-        <tr>
-            <td><?= $this->escapeHtml($survey->title) ?></td>
-            <td><?= $this->escapeHtml($survey->description) ?></td>
-            <td>
-                <a href="<?= $this->url('survey', ['action' => 'edit', 'id' => $album->id]) ?>">Edit</a>
-                <a href="<?= $this->url('survey', ['action' => 'delete', 'id' => $album->id]) ?>">Delete</a>
-                <a href="<?= $this->url('survey', ['action' => 'share', 'id' => $album->id]) ?>">Share</a>
-                <a href="<?= $this->url('survey', ['action' => 'fill', 'id' => $album->id]) ?>">Fill out</a>
-            </td>
-        </tr>
-    <?php endforeach; ?>
-</table>
+<?php
+$url = $this->url('survey', array(
+    'action' => 'delete',
+    'idsurvey'     => $this->idsurvey,
+));
+?>
+<form action="<?php echo $url; ?>" method="post">
+    <div>
+        <input type="hidden" name="idsurvey" value="<?php echo (int) $survey->idsurvey; ?>" />
+        <input type="submit" name="del" value="Yes" />
+        <input type="submit" name="del" value="No" />
+    </div>
+</form>
