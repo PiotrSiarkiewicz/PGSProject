@@ -58,7 +58,7 @@ class SurveyTable
         }
     }
 
-    public function deleteAlbum($idsurvey)
+    public function deleteSurvey($idsurvey)
     {
         $this->tableGateway->delete(array('idsurvey' => (int) $idsurvey));
     }

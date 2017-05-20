@@ -15,9 +15,10 @@ return array(
                 'type'    => 'Segment',
                 'may_terminate' => true,
                 'options' => array(
-                    'route'    => '/survey[/:action]',
+                    'route'    => '/survey[/:action][/:idsurvey]',
                     'constraints' => array(
                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'idsurvey'     => '[0-9]+',
                     ),
                     'defaults' => array(
                         'controller' => 'Users\Controller\Survey',
@@ -59,19 +60,47 @@ return array(
                     ),
                     'login' => array(
                         'type'    => 'Segment',
-	                	'may_terminate' => true,
-	                        'options' => array(
-	                            'route'    => '/login[/:action]',
-	                            'constraints' => array(
-	                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-	                            ),
-	                        	'defaults' => array(
-	                        		'controller' => 'Users\Controller\Login',
-	                        		'action'     => 'index',
-	                        	),                        		
-	                        ),
+                        'may_terminate' => true,
+                        'options' => array(
+                            'route'    => '/login[/:action]',
+                            'constraints' => array(
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Users\Controller\Login',
+                                'action'     => 'index',
+                            ),
+                        ),
                     ),
-
+                    'register' => array(
+                        'type'    => 'Segment',
+                        'may_terminate' => true,
+                        'options' => array(
+                            'route'    => '/register[/:action]',
+                            'constraints' => array(
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Users\Controller\Register',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'user-manager' => array(
+                        'type'    => 'Segment',
+                        'may_terminate' => true,
+                        'options' => array(
+                            'route'    => '/user-manager[/:action]',
+                            'constraints' => array(
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'     => '[a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Users\Controller\UserManager',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),
