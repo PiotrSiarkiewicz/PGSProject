@@ -13,13 +13,17 @@ class RegisterForm extends Form
         $this->setAttribute('class', 'form-horizontal');
         
         $this->add([
-            'name' => 'nick',
+            'name' => 'login',
             'attributes' => [
-                'type' => 'text'
+                'type' => 'text',
+
             ],
-            'options' => [
+
+
+            'options' =>
+                [
                 'label' => 'Login'
-            ]
+                ]
             ]
         );
         

@@ -11,10 +11,10 @@ $form->setAttribute('action', $this->url(NULL, ['controller'=>'login', 'action' 
         <legend>Sign In </legend>
 
         <div class="control-group">
-            <label class="control-label"><?=$this->formLabel($form->get('email'))?></label>
+            <label class="control-label"><?=$this->formLabel($form->get('login'))?></label>
             <div class="controls">
-                <?=$this->formElement($form->get('email'))?>
-                <?=$this->formElementErrors($form->get('email'))?>
+                <?=$this->formElement($form->get('login'))?>
+                <?=$this->formElementErrors($form->get('login'))?>
             </div>
         </div>
 
@@ -39,6 +39,6 @@ $form->setAttribute('action', $this->url(NULL, ['controller'=>'login', 'action' 
 
 
     <br />
-    <a href="/">Homepage</a>
+    <a href="/users">Homepage</a>
 
 </div>
