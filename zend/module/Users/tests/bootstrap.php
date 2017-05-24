@@ -104,3 +104,4 @@ if (method_exists($moduleTestCaseClassname, 'setLocator')) {
 // When this is in global scope, PHPUnit catches exception:
 // Exception: Zend\Stdlib\PriorityQueue::serialize() must return a string or NULL
 unset($moduleManager, $sharedEvents);
+Zend\Db\TableGateway\Feature\GlobalAdapterFeature::setStaticAdapter($adapter);

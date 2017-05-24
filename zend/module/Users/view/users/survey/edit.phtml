@@ -1,5 +1,5 @@
 <?php
-
+use Zend\Session\Container;
 $title = 'Edit survey';
 $this->headTitle($title);
 ?>
@@ -22,4 +22,52 @@ echo $this->formRow($form->get('title'));
 echo $this->formRow($form->get('description'));
 echo $this->formhidden($form->get('date'));
 echo $this->formSubmit($form->get('submit'));
+
+$session = new Container('creation');
+//if($session->offsetGet('question')==1)
+{?>
+
+    <div class="controls">
+        <label class="control-label"><?=$this->formLabel($form->get('text'))?>:</label>
+        <?=$this->formElement($form->get('text'))?>
+        <?=$this->formElement($form->get('submituq'))?>
+        <?=$this->formElement($form->get('submitq'))?>
+    </div>
+    <?php
+}
+
+//if($session->offsetGet('answer')>1){
+//{for($i=0;$i<=($session->offsetGet('answer')-2);$i++){?>
+    <div class="controls">
+        <label class="control-label"><?=$this->formLabel($form->get('texta'))?>:</label>
+        <?=$this->formElement($form->get('texta'))?>
+        <label class="control-label"><?=$this->formLabel($form->get('type'))?>:</label>
+        <?=$this->formElement($form->get('type'))?>
+        <?=$this->formElement($form->get('submitua'))?>
+        <?=$this->formElement($form->get('submita'))?>
+    </div>
+    <?php
+//}
+?>
+<div class="control-group">
+    <label class="control-label"></label>
+    <div class="controls">
+        <?=$this->formElement($form->get('submitc'))?>
+        <?=$this->formElementErrors($form->get('submitc'))?>
+    </div>
+</div>
+<?php
 echo $this->form()->closeTag();
+?>
+<!--<?php foreach ($surveys as $survey) : ?>
+    <tr>
+        <td><?php echo $this->escapeHtml($survey->title);?></td>
+        <td><?php echo $this->escapeHtml($survey->description);?></td>
+        <td>
+            <a href="<?php echo $this->url('survey',
+                array('action'=>'edit', 'idsurvey' => $survey->idsurvey));?>">Edit</a>
+            <a href="<?php echo $this->url('survey',
+                array('action'=>'delete', 'idsurvey' => $survey->idsurvey));?>">Delete</a>
+        </td>
+    </tr>
+<?php endforeach; ?>-->

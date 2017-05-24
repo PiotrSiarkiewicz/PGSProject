@@ -61,7 +61,6 @@ class LoginController extends AbstractActionController
     public function indexAction()
     {
         $session = new Container('base');
-        //if(!$this->getAuthService()->getStorage()->read('login'))
         if(!$session->offsetExists('iduser'))
         {
             $form = new LoginForm();

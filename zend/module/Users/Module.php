@@ -19,6 +19,12 @@ use Users\Model\UserTable;
 use Users\Model\Survey;
 use Users\Model\SurveyTable;
 
+use Users\Model\Question;
+use Users\Model\QuestionTable;
+
+use Users\Model\Answer;
+use Users\Model\AnswerTable;
+
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -75,7 +81,28 @@ class Module implements AutoloaderProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new Survey());
                     return new TableGateway('surveys', $dbAdapter, null, $resultSetPrototype);
                 },
-
+                'Users\Model\QuestionTable' =>  function($sm) {
+                    $tableGateway = $sm->get('QuestionTableGateway');
+                    $table = new QuestionTable($tableGateway);
+                    return $table;
+                },
+                'QuestionTableGateway' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Question());
+                    return new TableGateway('questions', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Users\Model\AnswerTable' =>  function($sm) {
+                    $tableGateway = $sm->get('AnswerTableGateway');
+                    $table = new AnswerTable($tableGateway);
+                    return $table;
+                },
+                'AnswerTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Answer());
+                    return new TableGateway('answeres', $dbAdapter, null, $resultSetPrototype);
+                },
                  'AuthService' => function($sm)
                  {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
@@ -96,7 +123,7 @@ class Module implements AutoloaderProviderInterface
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new User());
-					return new TableGateway('user', $dbAdapter, null, $resultSetPrototype);
+					return new TableGateway('users', $dbAdapter, null, $resultSetPrototype);
 				},
                 'UserEditForm' => function ($sm)
                 {
