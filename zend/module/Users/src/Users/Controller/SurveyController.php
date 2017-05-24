@@ -157,11 +157,12 @@ class SurveyController extends AbstractActionController
         if(isset($_POST['submit']))
         {
 
-            $session->offsetSet('question',1);
+
             $survey = new Survey();
             $form->setInputFilter($survey->getInputFilter());
-            $form->setData($request->getPost());
+                $form->setData($request->getPost());
             if ($form->isValid()) {
+                $session->offsetSet('question',1);
                 $survey->exchangeArray($form->getData());
                 $this->getSurveyTable()->saveSurvey($survey);
             }

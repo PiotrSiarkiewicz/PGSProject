@@ -22,16 +22,6 @@ class SurveyForm extends Form
         ]);
 
         $this->add([
-            'name' => 'idquestion',
-            'type' => 'hidden',
-        ]);
-
-        $this->add([
-            'name' => 'idanswer',
-            'type' => 'hidden',
-        ]);
-
-        $this->add([
             'name' => 'title',
             'type' => 'text',
             'options' => [
@@ -75,16 +65,6 @@ class SurveyForm extends Form
         ]);
 
         $this->add([
-            'name' => 'submita',
-            'type' => 'submit',
-            'attributes' => [
-                'value' => 'Go',
-                'id'    => 'submitbutton',
-            ],
-        ]);
-
-
-        $this->add([
             'name' => 'submitc',
             'type' => 'submit',
             'attributes' => [
@@ -93,23 +73,6 @@ class SurveyForm extends Form
             ],
         ]);
 
-        $this->add([
-            'name' => 'submituq',  //update question
-            'type' => 'submit',
-            'attributes' => [
-                'value' => 'Go',
-                'id'    => 'submitbutton',
-            ],
-        ]);
-
-        $this->add([
-            'name' => 'submitua',
-            'type' => 'submit',
-            'attributes' => [
-                'value' => 'Go',
-                'id'    => 'submitbutton',
-            ],
-        ]);
         $this->add([
             'name' => 'text',
             'type' => 'text',
@@ -122,12 +85,7 @@ class SurveyForm extends Form
             'name' => 'type',
             'type' => 'text',
             'options' => [
-                'label' => 'Type',
-                'value_options' => array(
-                    '0' => 'Open',
-                    '1' => 'Multiple choice',
-                    '2' => 'Single Choice',
-                ),
+                'label' => 'Type Ans',
             ],
         ]);
 
