@@ -12,6 +12,7 @@ class Survey implements InputFilterAwareInterface
     public $status;
     public $description;
     public $title;
+    public $text;
     protected $inputFilter;
 
     public function exchangeArray($data)
