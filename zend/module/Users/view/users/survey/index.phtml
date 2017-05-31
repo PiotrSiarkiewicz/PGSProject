@@ -1,5 +1,6 @@
 <?php
 // module/Album/view/album/album/index.phtml:
+use Zend\Session\Container;
 
 $title = 'My Surveys';
 $this->headTitle($title);
@@ -21,13 +22,16 @@ $this->headTitle($title);
             <td><?php echo $this->escapeHtml($survey->title);?></td>
             <td><?php echo $this->escapeHtml($survey->description);?></td>
             <td>
+                <a href="<?php
+                echo $this->url('survey',
+                    array('action'=>'edit', 'idsurvey' => $survey->idsurvey));?>" class="btn-primary btn">Edit</a>
                 <a href="<?php echo $this->url('survey',
-                    array('action'=>'edit', 'idsurvey' => $survey->idsurvey));?>">Edit</a>
-                <a href="<?php echo $this->url('survey',
-                    array('action'=>'delete', 'idsurvey' => $survey->idsurvey));?>">Delete</a>
+                    array('action'=>'delete', 'idsurvey' => $survey->idsurvey));?>" class="btn-primary btn">Delete</a>
+                <a href="<?php echo $this->url('fill',
+                    array('action'=>'index', 'idsurvey' => $survey->idsurvey));?>" class="btn-primary btn">Fill</a>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
 
-<a href="<?php echo $this->url('survey', array('action'=>'logout'));?>">Logout</a>
+<a href="<?php echo $this->url('survey', array('action'=>'logout'));?>" class="btn-primary btn">Logout</a>
