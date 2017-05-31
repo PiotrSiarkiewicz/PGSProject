@@ -53,8 +53,10 @@ class FillController extends  AbstractActionController
     }
     public function saveAction()
     {
-        $data = json_decode($this->getRequest()->getPost("data"));
-        var_dump($data);
+        var_dump('test123);
+        var_dump($this->getRequest()->getPost("data"));
+        //$data = json_decode($this->getRequest()->getPost("data"));
+        //var_dump($data);
         die();
     }
 
