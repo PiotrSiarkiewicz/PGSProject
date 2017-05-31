@@ -51,10 +51,11 @@ class FillController extends  AbstractActionController
         }
         return $this->answerTable;
     }
-    public function saveResults()
+    public function saveAction()
     {
         $data = json_decode($this->getRequest()->getPost("data"));
-
+        var_dump($data);
+        die();
     }
 
 }
