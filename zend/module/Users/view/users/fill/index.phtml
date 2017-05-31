@@ -19,32 +19,35 @@
 
     <?php foreach ($this->paginator as $question) :  ?>
         <tr>
-        <td><?php echo $this->escapeHtml($question->text);?></td>
+            <td><?= $this->escapeHtml($question->text); ?></td>
         <?php foreach ($this->answers as $answer) :  ?>
             <tr>
-                <?php if ($answer->idquestion == $question->idquestion) { ?>
+                <?php if ($answer->idquestion == $question->idquestion) : ?>
                     <td>
 
-                        <?php if ($answer->type == 'text') { ?> <input type="text" id="<?php echo $answer->idanswer ?>" > <?php }?>
-                        <?php if ($answer->type == 'checkbox') { ?> <input type="checkbox" id="<?php echo $answer->idanswer ?>" onchange="checkedBox(this.id)" > <?php }?>
-                        <?php if ($answer->type == 'radio') { ?> <input type="radio" id="<?php echo $answer->idanswer ?>"> <?php }?>
+                        <?php if ($answer->type == 'text') : ?> 
+                            <input type="text" id="<?= $answer->idanswer ?>" >
+                        <?php endif; ?>
+                        <?php if ($answer->type == 'checkbox') : ?>
+                            <input type="checkbox" id="<?= $answer->idanswer ?>" onchange="checkedBox(this.id)" >
+                        <?php endif; ?>
+                        <?php if ($answer->type == 'radio') : ?>
+                            <input type="radio" id="<?= $answer->idanswer ?>">
+                        <?php endif; ?>
                         <script>
-                            if(localStorage.getItem(<?php echo $answer->idanswer ?>))
+                            if(localStorage.getItem(<?= $answer->idanswer ?>))
                             {
-                                document.getElementById(<?php echo $answer->idanswer ?>).checked = true;
+                                document.getElementById(<?= $answer->idanswer ?>).checked = true;
                             }
                             else
                             {
-                                //document.getElementById(<?php echo $answer->idanswer ?>).checked = false;
+                                document.getElementById(<?= $answer->idanswer ?>).checked = false;
                             }
 
                         </script>
-
-
-                        <?php echo $this->escapeHtml($answer->text);?>
-
+                        <?= $this->escapeHtml($answer->text); ?>
                     </td>
-                <?php } ?>
+                <?php endif; ?>
             </tr>
         <?php endforeach; ?>
         </tr>
@@ -52,21 +55,19 @@
     <?php endforeach; ?>
 </table>
 
-<?php
-
-echo $this->paginationControl(
+<?= $this->paginationControl(
 // the paginator object
     $this->paginator,
     // the scrolling style
     'sliding',
     // the partial to use to render the control
-    array('users/partial/paginator.phtml', 'Users'),
+    ['users/partial/paginator.phtml', 'Users'],
     // the route to link to when a user clicks a control link
-    array(
+    [
         'route' => 'fill'
-    )
+    ]
 );
 ?>
 
 
-<a href="<?php echo $this->url('survey', array('action'=>'index'));?>" class="btn btn-primary">Back</a>
+<a href="<?= $this->url('survey', array('action'=>'index'));?>" class="btn btn-primary">Back</a>
