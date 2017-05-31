@@ -30,7 +30,7 @@ $session = new Container('creation');
     <div class="controls">
         <label class="control-label"><?=$this->formLabel($form->get('text'))?>:</label>
         <?=$this->formElement($form->get('text'))?>
-        <?=$this->formElement($form->get('submituq'))?>
+        <?=$this->formElement($form->get('submitnq'))?>
         <?=$this->formElement($form->get('submitq'))?>
     </div>
     <?php
@@ -39,11 +39,11 @@ $session = new Container('creation');
 //if($session->offsetGet('answer')>1){
 //{for($i=0;$i<=($session->offsetGet('answer')-2);$i++){?>
     <div class="controls">
-        <label class="control-label"><?=$this->formLabel($form->get('texta'))?>:</label>
-        <?=$this->formElement($form->get('texta'))?>
+        <label class="control-label"><?=$this->formLabel($form->get('text'))?>:</label>
+        <?=$this->formElement($form->get('text'))?>
         <label class="control-label"><?=$this->formLabel($form->get('type'))?>:</label>
         <?=$this->formElement($form->get('type'))?>
-        <?=$this->formElement($form->get('submitua'))?>
+        <?=$this->formElement($form->get('submitda'))?>
         <?=$this->formElement($form->get('submita'))?>
     </div>
     <?php

@@ -15,45 +15,65 @@ echo $this->formHidden($form->get('idsurvey'));
 echo $this->formRow($form->get('title'));
 echo $this->formRow($form->get('description'));
 echo $this->formhidden($form->get('date'));
-echo $this->formSubmit($form->get('submit'));
 
 $session = new Container('creation');
-if($session->offsetGet('question')==1)
-{?>
+
+?>
+
 
 <div class="controls">
-    <label class="control-label"><?=$this->formLabel($form->get('text'))?>:</label>
+    <label class="control-label"><?php echo $session->offsetGet('nquestion')."/". $session->offsetGet('AllQ').".",$this->formLabel($form->get('text'))?>:</label>
     <?=$this->formElement($form->get('text'))?>
-    <?=$this->formElement($form->get('submituq'))?>
-    <?=$this->formElement($form->get('submitq'))?>
+    <?= $this->formElement($form->get('submitq')) ?>
+
+    <?php
+    if($session->offsetGet('nquestion')>1) {
+        ?>
+        <?= $this->formElement($form->get('submitpq')) ?>
+        <?php
+    }
+    ?>
+    <?php
+    if($session->offsetGet('nquestion')<($session->offsetGet('AllQ'))){
+        ?>
+        <?= $this->formElement($form->get('submitnq')) ?>
+        <?php
+    }
+    ?>
+    <?=$this->formElementErrors($form->get('text'))?>
 </div>
     <?php
-}
+    for($i=1; $i<=$session->offsetGet('nanswer');$i++) {
+    ?>
+<div class="controls">
+    <label class="control-label"><?= $this->formLabel($form->get('text'.$i)) ?>:</label>
+    <?= $this->formElement($form->get("text".$i)) ?>
+    <label class="control-label"><?= $this->formLabel($form->get("type" . $i)) ?>:</label>
+    <?= $this->formElement($form->get("type" . $i)) ?>
+    <?= $this->formElement($form->get('submitda'.$i)) ?>
+    <?=$this->formElementErrors($form->get('text'.$i))?>
+    <?php
+    }
+    ?>
 
-if($session->offsetGet('answer')>1){
-//{for($i=0;$i<=($session->offsetGet('answer')-2);$i++){?>
-        <div class="controls">
-            <label class="control-label"><?=$this->formLabel($form->get('texta'))?>:</label>
-            <?=$this->formElement($form->get('texta'))?>
-            <label class="control-label"><?=$this->formLabel($form->get('type'))?>:</label>
-            <?=$this->formElement($form->get('type'))?>
-            <?=$this->formElement($form->get('submitua'))?>
-            <?=$this->formElement($form->get('submita'))?>
-        </div>
-<?php
-}//}
-?>
+
+
+</div>
+
 <div class="control-group">
     <label class="control-label"></label>
     <div class="controls">
-        <?=$this->formElement($form->get('submitc'))?>
-        <?=$this->formElementErrors($form->get('submitc'))?>
+        <?= $this->formElement($form->get('submita')) ?>
+        <?= $this->formElement($form->get('submitdq')) ?>
+        <?=$this->formElement($form->get('submit'))?>
     </div>
 </div>
 <?php
 echo $this->form()->closeTag();
 ?>
 
-<a href="<?php echo $this->url('survey', array('action'=>'logout'));?>">Logout</a>
-<br>
-<a href="<?php echo $this->url('survey', array('action'=>'index'));?>">Back</a>
+<a href="<?php echo $this->url('survey', array('action'=>'logout'));?>" class="btn-primary btn">Logout</a>
+
+<a href="<?php echo $this->url('survey',
+    array('action'=>'delete', 'idsurvey' => $session->offsetGet('idsurvey')));?>" class="btn-primary btn">Delete</a>
+<a href="<?php echo $this->url('survey', array('action'=>'index'));?>" class="btn btn-primary">Back</a>

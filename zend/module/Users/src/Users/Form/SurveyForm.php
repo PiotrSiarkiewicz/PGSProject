@@ -3,6 +3,7 @@
 namespace Users\Form;
 
 use Zend\Form\Form;
+use Zend\Session\Container;
 //tutaj nadajemy nazwy formularza
 class SurveyForm extends Form
 {
@@ -57,7 +58,7 @@ class SurveyForm extends Form
         ]);
 
         $this->add([
-            'name' => 'submit',
+            'name' => 'submit',  //Confirm
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
@@ -66,7 +67,7 @@ class SurveyForm extends Form
         ]);
 
         $this->add([
-            'name' => 'submitq',
+            'name' => 'submitq',  //Add Question
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
@@ -75,7 +76,7 @@ class SurveyForm extends Form
         ]);
 
         $this->add([
-            'name' => 'submita',
+            'name' => 'submita',   //Add Answer
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
@@ -85,7 +86,7 @@ class SurveyForm extends Form
 
 
         $this->add([
-            'name' => 'submitc',
+            'name' => 'submitnq',  //Next Question
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
@@ -94,7 +95,7 @@ class SurveyForm extends Form
         ]);
 
         $this->add([
-            'name' => 'submituq',  //update question
+            'name' => 'submitpq',  //previous question
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
@@ -103,13 +104,16 @@ class SurveyForm extends Form
         ]);
 
         $this->add([
-            'name' => 'submitua',
+            'name' => 'submitdq',           //delete question
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
                 'id'    => 'submitbutton',
             ],
         ]);
+
+
+
         $this->add([
             'name' => 'text',
             'type' => 'text',
@@ -118,25 +122,38 @@ class SurveyForm extends Form
             ],
         ]);
 
-        $this->add([
-            'name' => 'type',
-            'type' => 'text',
-            'options' => [
-                'label' => 'Type',
-                'value_options' => array(
-                    '0' => 'Open',
-                    '1' => 'Multiple choice',
-                    '2' => 'Single Choice',
-                ),
-            ],
-        ]);
+        $session = new Container('creation');
 
-        $this->add([
-            'name' => 'texta',
-            'type' => 'text',
-            'options' => [
-                'label' => 'Answer',
-            ],
-        ]);
+        for($i=1;$i<=$session->offsetGet('nanswer');$i++)
+        {
+            $this->add([
+                'name' => "type".$i,
+                'type' => 'select',
+                'options' => [
+                    'label' => 'Type',
+                    'value_options' => array(
+                        'text' => 'Open',
+                        'checkbox' => 'Multiple choice',
+                        'radio' => 'Single Choice',
+                    ),
+                ],
+            ]);
+
+            $this->add([
+                'name' => "text".$i,
+                'type' => 'text',
+                'options' => [
+                    'label' => 'Answer',
+                ],
+            ]);
+            $this->add([
+                'name' => 'submitda'.$i,   //Delete Answer
+                'type' => 'submit',
+                'attributes' => [
+                    'value' => 'Go',
+                    'id'    => 'submitbutton',
+                ],
+            ]);
+        }
     }
 }

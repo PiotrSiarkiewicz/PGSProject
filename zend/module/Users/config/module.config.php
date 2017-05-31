@@ -1,11 +1,29 @@
 <?php
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+use Users\Model\Question;
+
 return array(
+    'factories' => array(
+        'Users\Model\FillTable' =>  function($sm) {
+            $tableGateway = $sm->get('FillTableGateway');
+            $table = new \Users\Model\FillTable($tableGateway);
+            return $table;
+        },
+        'FillTableGateway' => function ($sm) {
+            $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+            $resultSetPrototype = new ResultSet();
+            $resultSetPrototype->setArrayObjectPrototype(new Question());
+            return new TableGateway('questions', $dbAdapter, null, $resultSetPrototype);
+        },
+    ),
     'controllers' => array(
         'invokables' => array(
             'Users\Controller\Index' => 'Users\Controller\IndexController',
             'Users\Controller\Register' => 'Users\Controller\RegisterController',
             'Users\Controller\Login' => 'Users\Controller\LoginController',
             'Users\Controller\Survey' => 'Users\Controller\SurveyController',
+            'Users\Controller\Fill' => 'Users\Controller\FillController',
 
         ),
     ),
@@ -26,7 +44,21 @@ return array(
                     ),
                 ),
             ),
-
+            'fill' => array(
+                'type'    => 'Segment',
+                'may_terminate' => true,
+                'options' => array(
+                    'route'    => '/fill[/:action][/:idsurvey]',
+                    'constraints' => array(
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'idsurvey'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Users\Controller\Fill',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             'users' => array(
                 'type'    => 'Literal',
                 'options' => array(
@@ -40,6 +72,8 @@ return array(
                         'action'        => 'index',
                     ),
                 ),
+
+
                 'may_terminate' => true,
                 'child_routes' => array(
                     // This route is a sane default when developing a module;
@@ -109,8 +143,5 @@ return array(
         'template_path_stack' => array(
             'users' => __DIR__ . '/../view',
         ),
-
-
-
     ),
 );

@@ -37,7 +37,7 @@ class SurveyTable
             throw new \Exception("Could not find row $idsurvey");
         }
         $session = new Container('creation');
-        $session ->offsetSet('idsurvey',$idsurvey);
+        //$session ->offsetSet('idsurvey',$idsurvey);
         return $row;
     }
 
@@ -54,14 +54,17 @@ class SurveyTable
             'description' => $survey->description=$_POST['description'],
             'title'  => $survey->title=$_POST['title'],  //cos wczesniej nie dzialalo sprawdzic
         );
+
         if($sessionc->offsetExists('idsurvey'))
         {
             $idsurvey=$sessionc->offsetGet('idsurvey');
-        }else
-        $idsurvey = (int) $survey->idsurvey;
+
+        }else {
+            $idsurvey = (int)$survey->idsurvey;
+        }
         if ($idsurvey == 0) {
             $this->tableGateway->insert($data);
-            $resultSet =  $this->tableGateway->select(['title'=> $title]);
+            $resultSet =  $this->tableGateway->select('title = "'.$title.'" ORDER BY idsurvey DESC'); //Zablokowanie gdy wie
             $row = $resultSet->current();
             $sessionc->offsetSet('idsurvey',$row->idsurvey);
         } else {
