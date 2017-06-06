@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas generowania: 24 Maj 2017, 14:42
+-- Czas generowania: 06 Cze 2017, 12:09
 -- Wersja serwera: 5.7.18-0ubuntu0.16.04.1
 -- Wersja PHP: 7.1.4-1+deb.sury.org~xenial+1
 
@@ -46,6 +46,20 @@ CREATE TABLE `answeres` (
   `type` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Zrzut danych tabeli `answeres`
+--
+
+INSERT INTO `answeres` (`idanswer`, `idquestion`, `text`, `type`) VALUES
+(1, 1, 'Anws1', 'checkbox'),
+(4, 1, 'Anws2', 'text'),
+(5, 3, 'Anws1', 'checkbox'),
+(7, 3, 'Anws2', 'checkbox'),
+(8, 2, 'Anws1', 'checkbox'),
+(9, 4, 'Anws1', 'checkbox'),
+(10, 5, 'pytanie', 'checkbox'),
+(11, 5, 'pytanko nowe', 'text');
+
 -- --------------------------------------------------------
 
 --
@@ -58,6 +72,17 @@ CREATE TABLE `questions` (
   `text` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Zrzut danych tabeli `questions`
+--
+
+INSERT INTO `questions` (`idquestion`, `idsurvey`, `text`) VALUES
+(1, 23, 'NowePytanie'),
+(2, 23, 'Question1'),
+(3, 23, 'Question2'),
+(4, 23, 'Nowe Pytanie'),
+(5, 23, 'Nowe Pytanie');
+
 -- --------------------------------------------------------
 
 --
@@ -66,12 +91,38 @@ CREATE TABLE `questions` (
 
 CREATE TABLE `results` (
   `idresult` int(11) NOT NULL,
-  `idsurvey` int(11) NOT NULL,
-  `idquestion` int(11) NOT NULL,
-  `idanswer` int(11) NOT NULL,
-  `text_answer` text NOT NULL,
-  `iduser` int(11) NOT NULL
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `idsurvey` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Zrzut danych tabeli `results`
+--
+
+INSERT INTO `results` (`idresult`, `date`, `idsurvey`) VALUES
+(1, '2017-06-06 10:05:59', 23),
+(2, '2017-06-06 10:06:01', 23);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `resultsData`
+--
+
+CREATE TABLE `resultsData` (
+  `idresults` int(11) NOT NULL,
+  `idresultsdate` int(11) NOT NULL,
+  `idanswer` int(11) NOT NULL,
+  `text` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Zrzut danych tabeli `resultsData`
+--
+
+INSERT INTO `resultsData` (`idresults`, `idresultsdate`, `idanswer`, `text`) VALUES
+(2, 1, 1, 'true'),
+(2, 4, 4, 'Zanotowana odpowiedz tekstowa');
 
 -- --------------------------------------------------------
 
@@ -152,10 +203,15 @@ ALTER TABLE `questions`
 --
 ALTER TABLE `results`
   ADD PRIMARY KEY (`idresult`),
-  ADD KEY `idquestion` (`idquestion`),
-  ADD KEY `idsurvey` (`idsurvey`),
-  ADD KEY `idanswer` (`idanswer`),
-  ADD KEY `iduser` (`iduser`);
+  ADD KEY `idsurvey` (`idsurvey`);
+
+--
+-- Indexes for table `resultsData`
+--
+ALTER TABLE `resultsData`
+  ADD PRIMARY KEY (`idresultsdate`),
+  ADD KEY `idresults` (`idresults`),
+  ADD KEY `idanswer` (`idanswer`);
 
 --
 -- Indexes for table `surveys`
@@ -188,17 +244,22 @@ ALTER TABLE `access`
 -- AUTO_INCREMENT dla tabeli `answeres`
 --
 ALTER TABLE `answeres`
-  MODIFY `idanswer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idanswer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT dla tabeli `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `idquestion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idquestion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT dla tabeli `results`
 --
 ALTER TABLE `results`
-  MODIFY `idresult` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idresult` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT dla tabeli `resultsData`
+--
+ALTER TABLE `resultsData`
+  MODIFY `idresultsdate` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT dla tabeli `surveys`
 --
@@ -236,10 +297,14 @@ ALTER TABLE `questions`
 -- Ograniczenia dla tabeli `results`
 --
 ALTER TABLE `results`
-  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`idsurvey`) REFERENCES `surveys` (`idsurvey`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `results_ibfk_2` FOREIGN KEY (`idquestion`) REFERENCES `questions` (`idquestion`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `results_ibfk_3` FOREIGN KEY (`idanswer`) REFERENCES `answeres` (`idanswer`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `results_ibfk_4` FOREIGN KEY (`iduser`) REFERENCES `users` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `results_ibfk_1` FOREIGN KEY (`idsurvey`) REFERENCES `surveys` (`idsurvey`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ograniczenia dla tabeli `resultsData`
+--
+ALTER TABLE `resultsData`
+  ADD CONSTRAINT `resultsData_ibfk_1` FOREIGN KEY (`idresults`) REFERENCES `results` (`idresult`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `resultsData_ibfk_2` FOREIGN KEY (`idanswer`) REFERENCES `answeres` (`idanswer`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `surveys`
