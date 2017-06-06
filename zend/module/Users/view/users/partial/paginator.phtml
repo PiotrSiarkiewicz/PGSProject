@@ -1,12 +1,32 @@
 <script>
     function clearStorage() {
-        var results = [];
-        for (var i = 0; i < localStorage.length; i++){
-            results[i] = localStorage.key(i);
+
+        var results = new Array(localStorage.length);
+        for (var i = 0; i < localStorage.length; i++) {
+            results[i] = new Array(2);
         }
+        var key
+        debugger;
+        results[0][0] = localStorage.getItem('id');
+        localStorage.removeItem('id');
+
         for (var i = 0; i < localStorage.length; i++){
-            localStorage.removeItem(localStorage.key(i));
+
+            key = localStorage.key(i);
+            if(isNaN(parseInt(localStorage.getItem(key))))
+            {
+                results[i+1][0] = key;
+                results[i+1][1] = localStorage.getItem(key);
+            }
+            else
+            {
+                results[i+1][0] = localStorage.getItem(key);
+            }
+
         }
+
+        localStorage.clear()
+
 
 
         $.ajax({
@@ -17,9 +37,7 @@
             success: function(data) {
                 alert(JSON.stringify(data, null, 4));
             },
-            error: function() {
-                alert("failure");
-            }
+
         });
     }
 
@@ -70,7 +88,7 @@
                         >>
                     </a>
                 </li>
-                <a href="<?php echo $this->url('survey', array('action'=>'index'));?>" class="btn btn-primary" onclick="clearStorage()">Complete Survey</a>
+                <a href="<?php echo $this->url('fill', array('action'=>'save'));?>" class="btn btn-primary" onclick="clearStorage()">Complete Survey</a>
             <?php endif; ?>
         </ul>
     </div>

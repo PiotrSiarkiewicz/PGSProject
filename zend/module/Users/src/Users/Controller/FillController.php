@@ -1,16 +1,15 @@
 <?php
 namespace Users\Controller;
+use Users\Model\Result;
+use Users\Model\ResultData;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Users\Model\FillTable;
-use Users\Model\Survey;          // <-- Add this import
-use Users\Form\SurveyForm;
-use Users\Model\Question;          // <-- Add this import
-use Users\Model\Answer;
+use Users\Model\ResultTable;
 use Zend\Session\Container;
-
-
-
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+use Users\Model\ResultDataTable;
 class FillController extends  AbstractActionController
 {
     protected $questionTable;
@@ -33,6 +32,7 @@ class FillController extends  AbstractActionController
         return new ViewModel(array(
             'paginator' => $paginator,
             'answers' => $answers,
+            'idsurvey' => $idsurvey
         ));
     }
     public function getQuestionTable()
@@ -53,11 +53,62 @@ class FillController extends  AbstractActionController
     }
     public function saveAction()
     {
-        var_dump('test123');
-        var_dump($this->getRequest()->getPost("data"));
-        //$data = json_decode($this->getRequest()->getPost("data"));
-        //var_dump($data);
-        die();
+        if(!$post = $this->getRequest()->getPost("data"))
+        {
+            return $this->redirect()->toRoute('survey', array('controller' => 'survey', 'action' => 'index'));
+        }
+        $post = json_decode($post);
+        $idsurvey = $post[0][0];
+        $idresult = $this->saveResult($idsurvey);
+        for($i = 1; $i<count($post);$i++)
+        {
+            $idanswer = $post[$i][0];
+
+            $idquestion = $this->getAnswerTable()->getIdQuestion($idanswer);
+            $data=[
+                'idresult' => $idresult,
+                'idquestion'=>$idquestion,
+                'idanswer' => $idanswer,
+                'text' => $post[$i][1],
+            ];
+            $this->saveResultData($data);
+        }
+
+
+
+
+
+        return true;
+    }
+    public function saveResult($idsurvey)
+    {
+        $sm = $this->getServiceLocator();
+        $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+
+        $resultSetPrototype = new ResultSet();
+        $resultSetPrototype->setArrayObjectPrototype(new Result());
+
+        $tableGateway = new TableGateway('results', $dbAdapter, null, $resultSetPrototype);
+
+        $result = new Result();
+        $result->exchangeArray($idsurvey);
+        $resultTable = new ResultTable($tableGateway);
+
+        return $resultTable->saveResult($result);
+    }
+    public function saveResultData($data)
+    {
+        $sm = $this->getServiceLocator();
+        $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+        $resultSetPrototype = new ResultSet();
+        $resultSetPrototype->setArrayObjectPrototype(new ResultData());
+        $tableGateway = new TableGateway('resultsdata', $dbAdapter, null, $resultSetPrototype);
+
+        $resultdata = new ResultData();
+        $resultdata->exchangeArray($data);
+        $resultDataTable = new ResultDataTable($tableGateway);
+
+        $resultDataTable->saveResultData($resultdata);
     }
 
 }

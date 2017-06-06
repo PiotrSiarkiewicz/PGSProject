@@ -34,7 +34,12 @@ class AnswerTable
         $resultSet = $this->tableGateway->select();
         return $resultSet;
     }
-
+    public function getIdQuestion($idanswer)
+    {
+        $rowset = $this->tableGateway->select(['idanswer' => $idanswer]);
+        $row = $rowset->current();
+        return $row->idquestion;
+    }
     public function getAnswer1($idanswer)
     {
         $idanswer = (int)$idanswer;
