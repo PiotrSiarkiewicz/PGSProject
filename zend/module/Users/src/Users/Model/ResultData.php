@@ -1,16 +1,28 @@
 <?php
 namespace Users\Model;
+
 class ResultData
 {
+    public $idresultdata;
     public $idresult;
-    public $idanswer;
-    public $idquestion;
     public $text;
+    public $idanswer;
+
+
+
     public function exchangeArray($data)
     {
-        $this->idresult    = (isset($data['idresult']))     ? $data['idresult']     : null;
-        $this->text  = (isset($data['text']))  ? $data['text']  : "true";
-        $this->idquestion   = (isset($data['idquestion'])) ? $data['idquestion'] : null;
-        $this->idanswer = (isset($data['idanswer'])) ? $data['idanswer'] : null;
+        $this->idresultdata   = (isset($data['idresultdata']))     ? $data['idresultdata']     : null;
+        $this->idresult   = (isset($data['idresult']))     ? $data['idresult']     : null;
+        $this->text     = (isset($data['text']))     ? $data['text']     : "true";
+        $this->idanswer   = (isset($data['idanswer'])) ? $data['idanswer'] : null;
+
+
     }
-}
+
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
+
+ }

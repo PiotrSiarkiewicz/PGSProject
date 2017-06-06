@@ -1,10 +1,12 @@
 <?php
-namespace Users\Model;
 
+namespace  Users\Model;
 
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Session\Container;
-
+use Users\Model\ResultData;
 
 class ResultDataTable
 {
@@ -15,20 +17,10 @@ class ResultDataTable
         $this->tableGateway = $tableGateway;
     }
 
-
-    public function fetchAll()
-    {
-        $session = new Container("result");
-        $resultSet = $this->tableGateway->select(array('idresult' => $session->offsetGet('idresult')));
-
-        $resultSet->buffer();
-        return $resultSet;
-    }
-
     public function saveResultData(ResultData $resultdate)
     {
         $data = [
-
+            'idquestion' => $resultdate->idquestion,
             'idresult' => $resultdate->idresult,
             'idanswer' => $resultdate->idanswer,
             'text' => $resultdate->text,
@@ -37,4 +29,5 @@ class ResultDataTable
         $this->tableGateway->insert($data);
 
     }
+
 }

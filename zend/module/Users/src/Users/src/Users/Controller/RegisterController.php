@@ -1,7 +1,6 @@
 <?php
 
 namespace Users\Controller;
-
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Users\Form\RegisterForm;
@@ -14,11 +13,10 @@ use Zend\Session\Container;
 class RegisterController extends AbstractActionController
 {
     private $message;
-
     public function indexAction()
     {
         $session = new Container('base');
-        if ($session->offsetExists('iduser')) {
+        if($session->offsetExists('iduser')) {
 
             return $this->redirect()->toRoute('survey',
                 array('controller' => 'survey', 'action' => 'index'));   //after successfull log in routing to profile
@@ -47,12 +45,16 @@ class RegisterController extends AbstractActionController
         $user = new User();
         $user->exchangeArray($data);
         $userTable = new UserTable($tableGateway);
-        if (!$userTable->uniqueEmail($user)) {
+        if(!$userTable->uniqueEmail($user))
+        {
             $this->message = 'email';
             return false;
 
-        } else {
-            if (!$userTable->uniqueLogin($user)) {
+        }
+        else
+        {
+            if(!$userTable->uniqueLogin($user))
+            {
                 $this->message = 'login';
                 return false;
             }
@@ -61,7 +63,6 @@ class RegisterController extends AbstractActionController
 
         return true;
     }
-
     public function emailMessege()
     {
         $post = $this->request->getPost();
@@ -73,7 +74,7 @@ class RegisterController extends AbstractActionController
             'form' => $form,
         ));
 
-        $form->get($this->message)->setMessages([$this->message . ' is already taken']); //ustaw wiadomosc
+        $form->get($this->message)->setMessages([$this->message.' is already taken']); //ustaw wiadomosc
 
         $model->setTemplate('users/register/index');  //wroc do formularza
         return $model;
@@ -82,7 +83,8 @@ class RegisterController extends AbstractActionController
     public function processAction()
     {
 
-        if (!$this->request->isPost()) {
+        if(!$this->request->isPost())
+        {
             return $this->redirect()->toRoute(null, array('controller' => 'register', 'action' => 'index'));
         }
 
@@ -92,17 +94,18 @@ class RegisterController extends AbstractActionController
         $form->setInputFilter($inputFilter);
         $form->setData($post);
 
-        if (!$form->isValid()) {
+        if(!$form->isValid())
+        {
             $model = new ViewModel(array(
                 'error' => true,
                 'form' => $form,
-            ));
+                ));
 
             $model->setTemplate('users/register/index');
             return $model;
         }
 
-        if ($form->get('password')->getValue() != $form->get('confirm_password')->getValue())  // Jesli hasło nie jest rowne potwierdzonemu haslu to
+        if($form->get('password')->getValue() != $form->get('confirm_password')->getValue())  // Jesli hasło nie jest rowne potwierdzonemu haslu to
         {
             $model = new ViewModel(array(
                 'error' => true,
@@ -115,16 +118,36 @@ class RegisterController extends AbstractActionController
             return $model;
         }
 
-        if (!$this->createUser($form->getData())) {
+        if(!$this->createUser($form->getData()))
+        {
             return $this->emailMessege();
         }
 
-        return $this->redirect()->toRoute(NULL, array(
+        return $this->redirect()->toRoute(NULL , array(
             'controller' => 'register',
             'action' => 'confirm'
-        ));
+            ));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>

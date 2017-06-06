@@ -9,6 +9,7 @@
 
 namespace Users;
 
+
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
@@ -25,8 +26,16 @@ use Users\Model\QuestionTable;
 use Users\Model\Answer;
 use Users\Model\AnswerTable;
 
+use Users\Model\Result;
+use Users\Model\ResultTable;
+
+use Users\Model\ResultData;
+use Users\Model\ResultDataTable;
+
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
+
+
 
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Zend\Authentication\AuthenticationService;
@@ -102,6 +111,28 @@ class Module implements AutoloaderProviderInterface
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Answer());
                     return new TableGateway('answeres', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Users\Model\ResultTable' =>  function($sm) {
+                    $tableGateway = $sm->get('ResultTableGateway');
+                    $table = new ResultTable($tableGateway);
+                    return $table;
+                },
+                'ResultTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Result());
+                    return new TableGateway('results', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Users\Model\ResultDataTable' =>  function($sm) {
+                    $tableGateway = $sm->get('ResultDataTableGateway');
+                    $table = new ResultDataTable($tableGateway);
+                    return $table;
+                },
+                'ResultDataTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new ResultData());
+                    return new TableGateway('resultsdata', $dbAdapter, null, $resultSetPrototype);
                 },
                  'AuthService' => function($sm)
                  {

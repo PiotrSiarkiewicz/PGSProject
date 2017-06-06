@@ -64,14 +64,20 @@ class FillController extends  AbstractActionController
         {
             $idanswer = $post[$i][0];
 
-
+            $idquestion = $this->getAnswerTable()->getIdQuestion($idanswer);
             $data=[
                 'idresult' => $idresult,
+                'idquestion'=>$idquestion,
                 'idanswer' => $idanswer,
                 'text' => $post[$i][1],
             ];
             $this->saveResultData($data);
         }
+
+
+
+
+
         return true;
     }
     public function saveResult($idsurvey)
@@ -85,10 +91,7 @@ class FillController extends  AbstractActionController
         $tableGateway = new TableGateway('results', $dbAdapter, null, $resultSetPrototype);
 
         $result = new Result();
-        $data = [
-            'idsurvey' => $idsurvey,
-        ];
-        $result->exchangeArray($data);
+        $result->exchangeArray($idsurvey);
         $resultTable = new ResultTable($tableGateway);
 
         return $resultTable->saveResult($result);

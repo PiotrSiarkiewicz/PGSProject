@@ -36,7 +36,8 @@ class SurveyTable
         if (!$row) {
             throw new \Exception("Could not find row $idsurvey");
         }
-
+        $session = new Container('creation');
+        //$session ->offsetSet('idsurvey',$idsurvey);
         return $row;
     }
 

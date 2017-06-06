@@ -2,7 +2,7 @@
 
 namespace Users\Form;
 
-
+use Zend\Form\Element;
 use Zend\Form\Form;
 
 class LoginForm extends Form
@@ -20,7 +20,7 @@ class LoginForm extends Form
                 'required' => 'required'
             ],
             'options' => [
-                'label' => 'Login'
+              'label' => 'Login'
             ]
         ]);
 

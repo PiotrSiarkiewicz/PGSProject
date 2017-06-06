@@ -1,7 +1,6 @@
 <?php
 
 namespace Users\Form;
-
 use Zend\Form\Form;
 
 class RegisterForm extends Form
@@ -12,34 +11,34 @@ class RegisterForm extends Form
         $this->setAttribute('method', 'post');
         $this->setAttribute('enctype', 'multipart/formdata');
         $this->setAttribute('class', 'form-horizontal');
-
+        
         $this->add([
-                'name' => 'login',
-                'attributes' => [
-                    'type' => 'text',
+            'name' => 'login',
+            'attributes' => [
+                'type' => 'text',
 
-                ],
+            ],
 
 
-                'options' =>
-                    [
-                        'label' => 'Login'
-                    ]
+            'options' =>
+                [
+                'label' => 'Login'
+                ]
             ]
         );
-
+        
         $this->add([
-                'name' => 'email',
-                'attributes' => [
-                    'type' => 'text'
-                ],
-                'options' => [
-                    'label' => 'Email'
-                ],
-                'filters' => [
-                    'required' => 'required',
-                ],
-                'validators' => [
+            'name' => 'email',
+            'attributes' => [
+                'type' => 'text'
+            ],
+            'options' => [
+                'label' => 'Email'
+            ],
+            'filters' => [
+                'required' => 'required',
+            ],
+            'validators' => [
                     [
                         'name' => 'EmailAddress',
                         'options' => [
@@ -48,26 +47,26 @@ class RegisterForm extends Form
                             ]
                         ]
                     ]
-                ]
+            ]
             ]
         );
-
+        
         $this->add([
-                'name' => 'password',
-                'attributes' => [
-                    'type' => 'password'
-                ],
+            'name' => 'password',
+            'attributes' => [
+                'type' => 'password'
+            ],
                 'options' => [
                     'label' => 'Password'
                 ]
             ]
         );
-
+        
         $this->add([
-                'name' => 'confirm_password',
-                'attributes' => [
-                    'type' => 'password'
-                ],
+            'name' => 'confirm_password',
+            'attributes' => [
+                'type' => 'password'
+            ],
                 'options' => [
                     'label' => 'Confirm Password'
                 ]
@@ -97,16 +96,16 @@ class RegisterForm extends Form
         );
 
         $this->add([
-                'name' => 'submit',
-                'attributes' => [
-                    'type' => 'submit',
-                    'value' => 'Sign Up',
-                ],
+            'name' => 'submit',
+            'attributes' => [
+                'type' => 'submit',
+                'value' => 'Sign Up',
+            ],
                 'options' => [
                     'label' => 'Ok'
                 ]
             ]
-        );
+        ); 
     }
 }
 

@@ -1,13 +1,24 @@
 <?php
-    namespace Users\Model;
+namespace Users\Model;
+
+
 class Result
 {
+    public $idresult;
     public $idsurvey;
-    public function exchangeArray($idsurvey)
+    public $date;
+
+
+    public function exchangeArray($data)
     {
-        $this->idsurvey     = (isset($idsurvey) ? $idsurvey     : null);
+        $this->idresult   = (isset($data['idresult']))     ? $data['idresult']     : null;
+        $this->date     = (isset($data['date']))     ? $data['date']     : null;
+        $this->idsurvey   = (isset($data['idsurvey'])) ? $data['idsurvey'] : null;
+
+    }
+
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
     }
 }
-
-
-

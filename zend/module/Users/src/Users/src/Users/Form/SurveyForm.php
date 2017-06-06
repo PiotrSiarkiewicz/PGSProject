@@ -4,8 +4,7 @@ namespace Users\Form;
 
 use Zend\Form\Form;
 use Zend\Session\Container;
-
-
+//tutaj nadajemy nazwy formularza
 class SurveyForm extends Form
 {
     public function __construct($name = null)
@@ -63,7 +62,7 @@ class SurveyForm extends Form
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
-                'id' => 'submitbutton',
+                'id'    => 'submitbutton',
             ],
         ]);
 
@@ -72,7 +71,7 @@ class SurveyForm extends Form
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
-                'id' => 'submitbutton',
+                'id'    => 'submitbutton',
             ],
         ]);
 
@@ -81,7 +80,7 @@ class SurveyForm extends Form
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
-                'id' => 'submitbutton',
+                'id'    => 'submitbutton',
             ],
         ]);
 
@@ -91,7 +90,7 @@ class SurveyForm extends Form
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
-                'id' => 'submitbutton',
+                'id'    => 'submitbutton',
             ],
         ]);
 
@@ -100,7 +99,7 @@ class SurveyForm extends Form
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
-                'id' => 'submitbutton',
+                'id'    => 'submitbutton',
             ],
         ]);
 
@@ -109,9 +108,10 @@ class SurveyForm extends Form
             'type' => 'submit',
             'attributes' => [
                 'value' => 'Go',
-                'id' => 'submitbutton',
+                'id'    => 'submitbutton',
             ],
         ]);
+
 
 
         $this->add([
@@ -124,9 +124,10 @@ class SurveyForm extends Form
 
         $session = new Container('creation');
 
-        for ($i = 1; $i <= $session->offsetGet('nanswer'); $i++) {
+        for($i=1;$i<=$session->offsetGet('nanswer');$i++)
+        {
             $this->add([
-                'name' => "type" . $i,
+                'name' => "type".$i,
                 'type' => 'select',
                 'options' => [
                     'label' => 'Type',
@@ -139,18 +140,18 @@ class SurveyForm extends Form
             ]);
 
             $this->add([
-                'name' => "text" . $i,
+                'name' => "text".$i,
                 'type' => 'text',
                 'options' => [
                     'label' => 'Answer',
                 ],
             ]);
             $this->add([
-                'name' => 'submitda' . $i,   //Delete Answer
+                'name' => 'submitda'.$i,   //Delete Answer
                 'type' => 'submit',
                 'attributes' => [
                     'value' => 'Go',
-                    'id' => 'submitbutton',
+                    'id'    => 'submitbutton',
                 ],
             ]);
         }

@@ -51,13 +51,13 @@
                 <?php if ($answer->idquestion == $question->idquestion) : ?>
                     <td>
 
-                        <?php if ($answer->type == 'text') : ?> 
+                        <?php if ($answer->type1 == 'text') : ?>
                             <input type="text" id="<?= $answer->idanswer ?>" onchange="checkedBox(this.id,this.name,this.value)" name="text">
                         <?php endif; ?>
-                        <?php if ($answer->type == 'checkbox') : ?>
+                        <?php if ($answer->type1 == 'checkbox') : ?>
                             <input type="checkbox" id="<?= $answer->idanswer ?>" onchange="checkedBox(this.id,this.name,<?= $question->idquestion ?>)" name="check">
                         <?php endif; ?>
-                        <?php if ($answer->type == 'radio') : ?>
+                        <?php if ($answer->type1 == 'radio') : ?>
 
                             <input type="radio" id="<?= $answer->idanswer ?>" onclick="checkedBox(this.id,this.name,<?= $question->idquestion ?>)" name="radio">
                         <?php endif; ?>
@@ -101,7 +101,7 @@
                             }
 
                         </script>
-                        <?= $this->escapeHtml($answer->text); ?>
+                        <?= $this->escapeHtml($answer->text1); ?>
                     </td>
                 <?php endif; ?>
             </tr>

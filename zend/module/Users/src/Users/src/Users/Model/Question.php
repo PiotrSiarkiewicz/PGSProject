@@ -1,5 +1,4 @@
 <?php
-
 namespace Users\Model;
 
 use Zend\InputFilter\InputFilter;
@@ -16,16 +15,15 @@ class Question implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
 
-        $this->idsurvey = (isset($data['idsurvey'])) ? $data['idsurvey'] : null;
-        $this->idquestion = (isset($data['idquestion'])) ? $data['idquestion'] : null;
-        $this->text = (isset($data['text'])) ? $data['text'] : null;
+        $this->idsurvey     = (isset($data['idsurvey']))     ? $data['idsurvey']     : null;
+        $this->idquestion     = (isset($data['idquestion']))     ? $data['idquestion']     : null;
+        $this->text  = (isset($data['text'])) ? $data['text'] : null;
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");
     }
-
     public function getArrayCopy()
     {
         return get_object_vars($this);
@@ -38,19 +36,19 @@ class Question implements InputFilterAwareInterface
 
 
             $inputFilter->add(array(
-                'name' => 'text',
+                'name'     => 'text',
                 'required' => true,
-                'filters' => array(
+                'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
                     array(
-                        'name' => 'StringLength',
+                        'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min' => 1,
-                            'max' => 100,
+                            'min'      => 1,
+                            'max'      => 100,
                         ),
                     ),
                 ),

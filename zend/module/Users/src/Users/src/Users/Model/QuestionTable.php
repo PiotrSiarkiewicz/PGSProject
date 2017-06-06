@@ -1,5 +1,4 @@
 <?php
-
 namespace Users\Model;
 
 
@@ -25,17 +24,11 @@ class QuestionTable
     public function fetchAll()
     {
         $session = new Container('creation');
-        $resultSes = new Container('result');
-        if ($resultSes->offsetExists('idsurvey'))
-            $idsurvey = $resultSes->offsetGet('idsurvey');
-        else
-            $idsurvey = $session->offsetGet('idsurvey');
+        $idsurvey = $session->offsetGet('idsurvey');
         $resultSet = $this->tableGateway->select(array('idsurvey' => $idsurvey));
-        $session->offsetSet('AllQ', $resultSet->count());
-        $resultSet->buffer();
+        $session->offsetSet('AllQ',$resultSet->count());
         return $resultSet;
     }
-
     public function fetchAll2()
     {
         $session = new Container('fill');
@@ -57,20 +50,19 @@ class QuestionTable
             $resultSetPrototype
         );
         $paginator = new Paginator($paginatorAdapter);
-
         return $paginator;
+
 
 
         return $resultSet;
     }
-
     public function getFirstQuestion()
     {
         $session = new Container('creation');
         $idsurvey = $session->offsetGet('idsurvey');
         $rowset = $this->tableGateway->select(array('idsurvey' => $idsurvey));
         $row = $rowset->current();
-        $session->offsetSet('idquestion', $row->idquestion);
+        $session ->offsetSet('idquestion',$row->idquestion);
         return $row;
     }
 
@@ -80,23 +72,22 @@ class QuestionTable
         $idsurvey = $session->offsetGet('idsurvey');
         $rowset = $this->tableGateway->select('idsurvey = ' . $idsurvey . ' ORDER BY idquestion DESC LIMIT 1');
         $row = $rowset->current();
-        $session->offsetSet('idquestion', $row->idquestion + 1);
+        $session ->offsetSet('idquestion',$row->idquestion+1);
         return $row;
     }
-
     public function getQuestion($idquestion)
     {
         $session = new Container('creation');
         $idsurvey = $session->offsetGet('idsurvey');
-        $idquestion = (int)$idquestion;
+        $idquestion  = (int) $idquestion;
         $rowset = $this->tableGateway->select(array('idsurvey' => $idsurvey));
         $row = $rowset->current();
-        $session->offsetSet('AllQ', $rowset->count());
+        $session->offsetSet('AllQ',$rowset->count());
         if (!$row) {
             throw new \Exception("Could not find row $idquestion");
         }
 
-        //     $session ->offsetSet('idquestion',$row->idquestion);
+   //     $session ->offsetSet('idquestion',$row->idquestion);
         return $row;
     }
 
@@ -105,18 +96,19 @@ class QuestionTable
         $session = new Container('creation');
         $idquestion = $session->offsetGet('idquestion');
         $idsurvey = $session->offsetGet('idsurvey');
-        if ($session->offsetGet('N/P_Question') == "prev")
-            $rowset = $this->tableGateway->select('idsurvey =' . $idsurvey . ' AND idquestion < ' . $idquestion . ' ORDER BY idquestion DESC LIMIT 1');
-        if ($session->offsetGet('N/P_Question') == "next")
-            $rowset = $this->tableGateway->select('idsurvey =' . $idsurvey . ' AND idquestion > ' . $idquestion . ' ORDER BY idquestion');
+        if($session -> offsetGet('N/P_Question')=="prev")
+            $rowset = $this->tableGateway->select('idsurvey ='. $idsurvey . ' AND idquestion < ' . $idquestion.' ORDER BY idquestion DESC LIMIT 1');
+        if($session -> offsetGet('N/P_Question')=="next")
+            $rowset = $this->tableGateway->select('idsurvey ='. $idsurvey . ' AND idquestion > ' . $idquestion.' ORDER BY idquestion');
         $row = $rowset->current();
-        $session->offsetSet('idquestion', $row->idquestion);
+        $session->offsetSet('idquestion',$row->idquestion);
         if (!$row) {
             throw new \Exception("Could not find row $idquestion");
         }
-        $session->offsetSet('idquestion', $row->idquestion);
+        $session ->offsetSet('idquestion',$row->idquestion);
         return $row;
     }
+
 
 
     public function saveQuestion(Question $question)
@@ -126,23 +118,24 @@ class QuestionTable
         $idsurvey = $session->offsetGet('idsurvey'); //gettting iduser from session
         $text = $_POST['text'];
         $data = array(
-            'text' => $question->text = $_POST['text'],
-            'idsurvey' => $question->idsurvey = $idsurvey,
+            'text' => $question->text=$_POST['text'],
+            'idsurvey'=> $question->idsurvey=$idsurvey,
         );
-        if ($session->offsetExists('idquestion')) {
-            $idquestion = $session->offsetGet('idquestion');
+        if($session->offsetExists('idquestion'))
+        {
+            $idquestion=$session->offsetGet('idquestion');
 
-        } else
-            $idquestion = (int)$question->idquestion;
+        }else
+        $idquestion = (int) $question->idquestion;
         if ($idquestion == 0) {
 
             $this->tableGateway->insert($data);
             $select = new Select('questions');       //CHANGE TABLE_NAME as per needs
-            $select->where('idsurvey =' . $idsurvey . 'AND text = "1"');
+            $select->where('idsurvey ='. $idsurvey . 'AND text = "1"' );
             $select->order('idquestion DESC');
-            $resultSet = $this->tableGateway->select('idsurvey =' . $idsurvey . ' AND text = "' . $text . '" ORDER BY idquestion DESC');
+            $resultSet =  $this->tableGateway->select('idsurvey ='. $idsurvey . ' AND text = "'.$text.'" ORDER BY idquestion DESC');
             $row = $resultSet->current();
-            $session->offsetSet('idquestion', $row->idquestion);
+            $session->offsetSet('idquestion',$row->idquestion);
             $this->fetchAll();
         } else {
             if ($this->getQuestion($idquestion)) {
@@ -156,7 +149,7 @@ class QuestionTable
 
     public function deleteQuestion($idquestion)
     {
-        $this->tableGateway->delete(array('idquestion' => (int)$idquestion));
+        $this->tableGateway->delete(array('idquestion' => (int) $idquestion));
         $this->fetchAll();
     }
 }
