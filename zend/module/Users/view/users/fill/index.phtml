@@ -1,22 +1,48 @@
 <script>
 
-    function checkedBox(val) {
-        if(document.getElementById(val).checked)
+    if(localStorage.getItem('id') == null)
+    {
+
+        localStorage.setItem('id',<?= $this->idsurvey ?>);
+    }
+    function checkedBox(val,name,idq)
+    {
+
+        if(name == "radio")
         {
-            //debugger;
-            localStorage.setItem(val, val);
+            name = name + idq;
+            localStorage.removeItem(name);
+            localStorage.setItem(name,val);
         }
         else
         {
-            localStorage.removeItem(val);
+            if(name == "text") {
+                localStorage.setItem(val,idq);
+            }
+            else
+            {
+                if(document.getElementById(val).checked)
+                {
+
+                    localStorage.setItem(val, val);
+                }
+                else
+                {
+                    localStorage.removeItem(val);
+                }
+            }
+
         }
 
-
-        //  document.getElementById("test1").innerHTML = localStorage.length;
     }
+
+
+
+
+
 </script>
 <table class="table">
-
+    <!--<p id="test1"></p>-->
     <?php foreach ($this->paginator as $question) :  ?>
         <tr>
             <td><?= $this->escapeHtml($question->text); ?></td>
@@ -25,27 +51,57 @@
                 <?php if ($answer->idquestion == $question->idquestion) : ?>
                     <td>
 
-                        <?php if ($answer->type == 'text') : ?> 
-                            <input type="text" id="<?= $answer->idanswer ?>" >
+                        <?php if ($answer->type1 == 'text') : ?>
+                            <input type="text" id="<?= $answer->idanswer ?>" onchange="checkedBox(this.id,this.name,this.value)" name="text">
                         <?php endif; ?>
-                        <?php if ($answer->type == 'checkbox') : ?>
-                            <input type="checkbox" id="<?= $answer->idanswer ?>" onchange="checkedBox(this.id)" >
+                        <?php if ($answer->type1 == 'checkbox') : ?>
+                            <input type="checkbox" id="<?= $answer->idanswer ?>" onchange="checkedBox(this.id,this.name,<?= $question->idquestion ?>)" name="check">
                         <?php endif; ?>
-                        <?php if ($answer->type == 'radio') : ?>
-                            <input type="radio" id="<?= $answer->idanswer ?>">
+                        <?php if ($answer->type1 == 'radio') : ?>
+
+                            <input type="radio" id="<?= $answer->idanswer ?>" onclick="checkedBox(this.id,this.name,<?= $question->idquestion ?>)" name="radio">
                         <?php endif; ?>
                         <script>
-                            if(localStorage.getItem(<?= $answer->idanswer ?>))
+
+                            if(document.getElementById(<?= $answer->idanswer ?>).type == "radio")
                             {
-                                document.getElementById(<?= $answer->idanswer ?>).checked = true;
+                                if(localStorage.getItem("radio"+<?= $question->idquestion ?>) ==<?= $answer->idanswer ?>)
+                                {
+                                    document.getElementById(<?= $answer->idanswer ?>).checked = true;
+                                }
+                                else
+                                {
+                                    document.getElementById(<?= $answer->idanswer ?>).checked = false;
+                                }
                             }
                             else
                             {
-                                document.getElementById(<?= $answer->idanswer ?>).checked = false;
+                                if(document.getElementById(<?= $answer->idanswer ?>).type == "text")
+                                {
+                                    if (localStorage.getItem(<?= $answer->idanswer ?>))
+                                    {
+                                        document.getElementById(<?= $answer->idanswer ?>).setAttribute('value',localStorage.getItem(<?= $answer->idanswer ?>));
+                                    }
+                                    else
+                                    {
+                                        document.getElementById(<?= $answer->idanswer ?>).value = "";
+                                    }
+                                }
+                                else
+                                {
+                                    if (localStorage.getItem(<?= $answer->idanswer ?>))
+                                    {
+                                        document.getElementById(<?= $answer->idanswer ?>).checked = true;
+                                    }
+                                    else
+                                    {
+                                        document.getElementById(<?= $answer->idanswer ?>).checked = false;
+                                    }
+                                }
                             }
 
                         </script>
-                        <?= $this->escapeHtml($answer->text); ?>
+                        <?= $this->escapeHtml($answer->text1); ?>
                     </td>
                 <?php endif; ?>
             </tr>
@@ -70,4 +126,4 @@
 ?>
 
 
-<a href="<?= $this->url('survey', array('action'=>'index'));?>" class="btn btn-primary">Back</a>
+<a href="<?= $this->url('survey', array('action'=>'index'));?>" class="btn btn-primary" onclick="localStorage.clear()">Back</a>

@@ -24,6 +24,7 @@ return array(
             'Users\Controller\Login' => 'Users\Controller\LoginController',
             'Users\Controller\Survey' => 'Users\Controller\SurveyController',
             'Users\Controller\Fill' => 'Users\Controller\FillController',
+            'Users\Controller\Result' => 'Users\Controller\ResultController',
 
         ),
     ),
@@ -55,6 +56,21 @@ return array(
                     ),
                     'defaults' => array(
                         'controller' => 'Users\Controller\Fill',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            'result' => array(
+                'type'    => 'Segment',
+                'may_terminate' => true,
+                'options' => array(
+                    'route'    => '/result[/:action][/:idsurvey][/:idresult]',
+                    'constraints' => array(
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'idsurvey'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Users\Controller\Result',
                         'action'     => 'index',
                     ),
                 ),
