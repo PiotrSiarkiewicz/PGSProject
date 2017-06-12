@@ -51,6 +51,6 @@
 		</VirtualHost></code>
  
  		-open c:\windows\system32\drivers\etc\hosts file as administrator in some text editor and paste this :
-		127.0.0.1 zf-tutorial.localhost localhost
+		127.0.0.1 zend.localhost localhost
 		-Restart Apahche by clicking Stop in XAMPP Control Panel for apache and Start
 		-now you can open project by typing http://zend.localhost/users in address bar in your web browser 
